@@ -1,6 +1,9 @@
 package me.kzv.okvue.config;
 
 import lombok.RequiredArgsConstructor;
+import me.kzv.okvue.security.oauth2.CustomOAuth2UserService;
+import me.kzv.okvue.security.oauth2.handler.CustomOAuth2FailureHandler;
+import me.kzv.okvue.security.oauth2.handler.CustomOAuth2SuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,9 +18,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-//    private final CustomOAuth2UserService customOAuth2UserService;
-//    private final CustomOAuth2SuccessHandler successHandler;
-//    private final CustomOAuth2FailureHandler failureHandler;
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final CustomOAuth2SuccessHandler successHandler;
+    private final CustomOAuth2FailureHandler failureHandler;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -44,14 +47,14 @@ public class SecurityConfig {
                 .formLogin().loginPage("/").permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll()
-//                .and()
-//                .oauth2Login()
-//                .loginPage("/login") // 스프링 기본 로그인 페이지 사용 안하려면 매핑해줘야함
-//                .userInfoEndpoint()
-//                .userService(customOAuth2UserService)
-//                .and()
-//                .successHandler(successHandler)
-//                .failureHandler(failureHandler)
+                .and()
+                .oauth2Login()
+                .loginPage("/login") // 스프링 기본 로그인 페이지 사용 안하려면 매핑해줘야함
+                .userInfoEndpoint()
+                .userService(customOAuth2UserService)
+                .and()
+                .successHandler(successHandler)
+                .failureHandler(failureHandler)
         ;
 
 //        http.headers().frameOptions().sameOrigin();
