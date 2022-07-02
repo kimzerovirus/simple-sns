@@ -84,6 +84,7 @@ export default {
 		vertical-align: middle;
 		background: #fff;
 		font-family: Arial;
+		text-decoration: none;
 		cursor: pointer;
 
 		&.pre_end:hover,
