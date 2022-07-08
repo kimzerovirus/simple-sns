@@ -8,8 +8,8 @@ module.exports = {
 		parser: 'babel-eslint',
 	},
 	rules: {
-		'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off', // console이 있으면 error
-		'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+		// 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off', // console이 있으면 error
+		// 'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
 		'vue/script-setup-uses-vars': 'off',
 		'vue/multi-word-component-names': 'off',
 		'vue/no-mutating-props': 'off',

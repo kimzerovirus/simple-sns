@@ -39,14 +39,15 @@ public class SecurityConfig {
                 .authorizeRequests()
                 // h2-console설정
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/", "/images/**", "/js/**", "/css/**").permitAll()
+                .antMatchers("/", "/login", "/admin/login", "/api/v1/login").permitAll()
 //                .antMatchers("/api/v1/**").hasRole(Role.USER.name())
 //                .anyRequest().authenticated()
+                .antMatchers("/admin/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/").permitAll()
+                .formLogin().loginPage("/admin/login").permitAll() // 어드민페이지 로그인 페이지
                 .and()
-                .logout().logoutSuccessUrl("/").permitAll()
+                .logout().logoutSuccessUrl("/admin").permitAll()
                 .and()
                 .oauth2Login()
                 .loginPage("/login") // 스프링 기본 로그인 페이지 사용 안하려면 매핑해줘야함

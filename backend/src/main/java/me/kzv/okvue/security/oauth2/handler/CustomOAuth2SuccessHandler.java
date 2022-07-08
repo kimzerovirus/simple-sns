@@ -3,7 +3,6 @@ package me.kzv.okvue.security.oauth2.handler;
 import lombok.extern.log4j.Log4j2;
 import me.kzv.okvue.security.jwt.JwtTokenProvider;
 import me.kzv.okvue.security.jwt.dto.TokenDto;
-import me.kzv.okvue.web.account.persistence.Role;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;

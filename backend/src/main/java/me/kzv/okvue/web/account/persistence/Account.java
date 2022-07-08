@@ -29,6 +29,7 @@ public class Account extends BaseEntity {
 
     private String profileImage;
 
+    @Column(columnDefinition = "boolean default false")
     private boolean emailVerified;
 
     @Enumerated(EnumType.STRING)

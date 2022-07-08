@@ -7,7 +7,7 @@ const routes = [
 	{
 		path: '/',
 		name: 'Home',
-		component: () => import(/* webpackChunkName: "about" */ '@/views/www/Home.vue'),
+		component: () => import(/* webpackChunkName: "about" */ '@/views/Home.vue'),
 	},
 
 	/* test component */
@@ -15,6 +15,22 @@ const routes = [
 		path: '/test',
 		name: 'TEST',
 		component: () => import(/* webpackChunkName: "about" */ '../test/TestComponent.vue'),
+	},
+	{
+		path: '/board/write',
+		name: 'Write',
+		component: () => import('@/views/BoardWrite.vue'),
+	},
+
+	// 404
+	{
+		path: '/404',
+		name: 'Not Found',
+		component: () => import('@/views/NotFound.vue'),
+	},
+	{
+		path: '*',
+		redirect: '/404',
 	},
 ];
 
