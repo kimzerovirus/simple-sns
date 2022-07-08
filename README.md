@@ -4,7 +4,7 @@
   *FRONTEND*  (Vue2)
 - [x] Bootstrap
 - [ ] Auto Login
-- [ ] wysiwyg (summernote?)
+- [x] wysiwyg
 - [ ] Private Router
 - [ ] Dark Mode
 
