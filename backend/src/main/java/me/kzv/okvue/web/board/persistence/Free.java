@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.kzv.okvue.common.persistence.BaseEntity;
+import me.kzv.okvue.web.account.persistence.Account;
 
 import javax.persistence.*;
 
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Qna extends BaseEntity {
+public class Free extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +27,4 @@ public class Qna extends BaseEntity {
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private Account account;
-
-    // 추천수
-    // 조회수
 }

@@ -2,8 +2,8 @@
 	<div class="container">
 		<div class="select-box">
 			<select v-model="selected" :key="i" class="form-select">
-				<option v-for="(filter, i) in filters" :key="i" :value="filter">
-					{{ filter }}
+				<option v-for="(filter, i) in filters" :key="i" :value="filter.value">
+					{{ filter.name }}
 				</option>
 			</select>
 		</div>
@@ -15,14 +15,18 @@
 </template>
 
 <script>
-const filters = ['전체 검색', 'Q&A'];
+const filters = [
+	{ name: '전체 검색', value: 'all' },
+	{ name: '질문게시판', value: 'qna' },
+	{ name: '자유게시판', value: 'free' },
+];
 
 export default {
 	data() {
 		return {
 			keyword: '',
 			filters,
-			selected: filters[0],
+			selected: filters[0].value,
 		};
 	},
 	methods: {

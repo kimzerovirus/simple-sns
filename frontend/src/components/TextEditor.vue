@@ -17,13 +17,6 @@ export default {
 	components: {
 		Editor,
 	},
-	mounted() {
-		console.log(this.$route.query.mid);
-		if (this.$route.query.mid === undefined || this.$route.query.mid === null || this.$route.query.mid === '') {
-			console.log('asdf');
-			this.$router.replace('/');
-		}
-	},
 	data() {
 		return {
 			options: {
