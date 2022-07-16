@@ -26,14 +26,23 @@
 						value="true"
 					/>
 					<label for="save-email" class="form-check-label">이메일 저장</label>
-					<a>회원가입</a>
+					<a href="#">회원가입</a>
 				</div>
 
 				<div class="btn-login-group">
 					<button type="submit" class="btn-login">로그인</button>
-					<a class="btn-login btn-google">구글 로그인</a>
-					<a class="btn-login btn-naver">네이버 로그인</a>
-					<a class="btn-login btn-kakao"> 카카오 로그인 </a>
+					<a class="btn-login btn-google">
+						<span class="icon-social icon-google"></span>
+						구글 로그인
+					</a>
+					<a class="btn-login btn-naver">
+						<span class="icon-social icon-naver"></span>
+						네이버 로그인
+					</a>
+					<a class="btn-login btn-kakao">
+						<span class="icon-social icon-kakao"></span>
+						카카오 로그인
+					</a>
 				</div>
 			</form>
 		</div>
@@ -192,6 +201,29 @@ export default {
 				}
 			}
 		}
+	}
+
+	.icon-social {
+		line-height: 50px;
+		height: 20px;
+		width: 20px;
+		display: inline-block;
+		background-size: contain;
+		background-repeat: no-repeat;
+		vertical-align: text-top;
+		margin-right: 10px;
+	}
+	.icon-google {
+		background-image: url(../assets/img/google.png);
+	}
+	.icon-naver {
+		background-image: url(../assets/img/naver.png);
+	}
+	.icon-kakao {
+		background-image: url(../assets/img/kakao.png);
+	}
+	.form-check-label {
+		cursor: pointer;
 	}
 }
 </style>

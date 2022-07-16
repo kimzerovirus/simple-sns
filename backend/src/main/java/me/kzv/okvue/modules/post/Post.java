@@ -1,10 +1,10 @@
-package me.kzv.okvue.web.board;
+package me.kzv.okvue.modules.board;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.kzv.okvue.web.common.BaseEntity;
+import me.kzv.okvue.modules.common.BaseEntity;
 
 import javax.persistence.*;
 
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Qna extends BaseEntity {
+public class Free extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +25,10 @@ public class Qna extends BaseEntity {
     private String content;
 
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    private Account account;
+//    private Account writer;
 
-    // 추천수
-    // 조회수
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

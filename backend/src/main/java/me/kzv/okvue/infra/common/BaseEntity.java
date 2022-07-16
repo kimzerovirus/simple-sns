@@ -1,4 +1,4 @@
-package me.kzv.okvue.web.common;
+package me.kzv.okvue.modules.common;
 
 import lombok.Getter;
 import org.hibernate.annotations.Comment;
@@ -28,4 +28,8 @@ public abstract class BaseEntity {
     @Column(columnDefinition = "varchar(255) default 'ACTIVE'")
     @Enumerated(EnumType.STRING)
     private ActiveStatus status;
+
+    public void updateStatus(ActiveStatus status){
+        this.status = status;
+    }
 }

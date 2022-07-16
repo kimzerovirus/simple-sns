@@ -1,4 +1,4 @@
-package me.kzv.okvue.web.common;
+package me.kzv.okvue.modules.common;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

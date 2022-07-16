@@ -1,4 +1,4 @@
-package me.kzv.okvue.web.common.dto;
+package me.kzv.okvue.modules.common.dto;
 
 import lombok.Builder;
 import lombok.Getter;

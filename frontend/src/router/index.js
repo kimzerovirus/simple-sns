@@ -18,6 +18,11 @@ const router = new VueRouter({
 			component: () => import('@/views/LoginPage.vue'),
 		},
 		{
+			path: '/signup',
+			name: 'Register',
+			component: () => import('@/views/RegisterPage.vue'),
+		},
+		{
 			path: '/board',
 			name: 'Board',
 			component: () => import('@/views/BoardListPage.vue'),
@@ -74,7 +79,7 @@ router.beforeEach((to, from, next) => {
 	// }
 
 	if (to.meta.query) {
-		const pass = queryGuard(to.query.mid, ['qna', 'free']);
+		const pass = queryGuard(to.query.mid, ['qna', 'free', 'bug']);
 		if (!pass) {
 			next('/');
 			return;
