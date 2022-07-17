@@ -41,6 +41,7 @@ public class AccountService {
         log.info(authenticationToken);
         // 2. 검증 (사용자 비밀번호 체크)
         // authenticate 메소드가 실행 될 때 CustomUserDetailsService 에서 만들었던 loadUserByUsername 메소드가 실행됨
+        // AbstractUserDetailsAuthenticationProvider 에서 검증
         // 인증 과정에서 role 이 없거나 비밀번호가 틀린 경우
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 

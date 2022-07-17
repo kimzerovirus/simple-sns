@@ -1,6 +1,8 @@
 package me.kzv.okvue.infra.config;
 
 import lombok.RequiredArgsConstructor;
+import me.kzv.okvue.infra.security.jwt.JwtAccessDeniedHandler;
+import me.kzv.okvue.infra.security.jwt.JwtAuthenticationEntryPoint;
 import me.kzv.okvue.infra.security.jwt.JwtAuthenticationFilter;
 import me.kzv.okvue.infra.security.jwt.JwtTokenProvider;
 import me.kzv.okvue.infra.security.oauth2.CustomOAuth2UserService;
@@ -24,12 +26,19 @@ public class SecurityConfig {
     private final CustomOAuth2SuccessHandler successHandler;
     private final CustomOAuth2FailureHandler failureHandler;
     private final JwtTokenProvider tokenProvider;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .headers().frameOptions().disable()
+
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
 
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -59,6 +68,7 @@ public class SecurityConfig {
                 .and()
                 .successHandler(successHandler)
                 .failureHandler(failureHandler)
+
         ;
 
 //        http.headers().frameOptions().sameOrigin();

@@ -26,16 +26,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("================jwt filter================");
-        try {
-            String token = parseBearerToken(request);
-            String userId = tokenProvider.validateAndGetAccountId(token);
-            if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
-                log.info("Authenticated user ID: " + userId);
-                Authentication authentication = tokenProvider.getAuthentication(token);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-        } catch (Exception e) {
-            log.warn("JWT Authentication Error", e);
+//        try {
+//            String token = parseBearerToken(request);
+//            String userId = tokenProvider.validateAndGetAccountId(token);
+//        if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
+//            Authentication authentication = tokenProvider.getAuthentication(token);
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//        }
+//        } catch (Exception e) {
+//            log.warn("JWT Authentication Error", e);
+//        }
+
+        // 1. 헤더에서 토큰 추출
+        String token = parseBearerToken(request);
+
+        // 2. 토큰 유효성 검사
+        if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
+            Authentication authentication = tokenProvider.getAuthentication(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         filterChain.doFilter(request, response);

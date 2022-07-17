@@ -15,17 +15,17 @@ public class AppConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // 로컬 테스트용 설정
-    @Bean
-    public CorsFilter corsFilter(){
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-
-        source.registerCorsConfiguration("/api/**", config);
-        return new CorsFilter(source);
-    }
+//    // 로컬 테스트용 설정
+//    @Bean
+//    public CorsFilter corsFilter(){
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowCredentials(true);
+//        config.addAllowedOrigin("*");
+//        config.addAllowedHeader("*");
+//        config.addAllowedMethod("*");
+//
+//        source.registerCorsConfiguration("/api/**", config);
+//        return new CorsFilter(source);
+//    }
 }

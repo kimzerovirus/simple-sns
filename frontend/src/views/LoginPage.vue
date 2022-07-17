@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import { loginApi } from '@/api/account';
+
 export default {
 	components: {},
 	mounted() {
@@ -69,18 +71,19 @@ export default {
 	methods: {
 		async onSubmit() {
 			if (this.id === null || this.id === '') {
-				this.$store.commit('alertToggle', {
-					isAlert: true,
-					text: '아이디를 입력해주세요',
-				});
+				alert('아이디를 입력해주세요');
 				return;
 			}
 			if (this.pwd === null || this.pwd === '') {
-				this.$store.commit('alertToggle', {
-					isAlert: true,
-					text: '비밀번호를 입력해주세요',
-				});
+				alert('비밀번호를 입력해주세요');
 				return;
+			}
+			try {
+				const { data } = await loginApi({ email: this.id, password: this.pwd });
+				console.log(data);
+			} catch (error) {
+				console.log(error);
+				this.initForm();
 			}
 		},
 		initForm() {

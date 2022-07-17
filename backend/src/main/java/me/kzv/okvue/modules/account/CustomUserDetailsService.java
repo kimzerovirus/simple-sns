@@ -18,8 +18,10 @@ import java.util.Collections;
 public class CustomUserDetailsService implements UserDetailsService {
     private final AccountRepository accountRepository;
 
+    // 자격증명 실패시 JwtAuthenticationEntryFilter 에서 401에러
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        log.info("======================customDetailsService======================");
         log.info(email);
         return accountRepository.findByEmail(email)
                 .map(this::createUSerDetails)
