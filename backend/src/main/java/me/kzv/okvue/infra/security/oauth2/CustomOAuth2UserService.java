@@ -2,8 +2,8 @@ package me.kzv.okvue.infra.security.oauth2;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import me.kzv.okvue.web.account.Account;
-import me.kzv.okvue.web.account.AccountRepository;
+import me.kzv.okvue.modules.account.Account;
+import me.kzv.okvue.modules.account.AccountRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -39,7 +39,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         Account account = getAccount(attributes);
         log.info(account);
 
-        return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(account.getRoleKey())),
+        return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(account.getAuthority())),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey());
     }

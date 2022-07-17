@@ -1,8 +1,8 @@
-package me.kzv.okvue.web.account.validator;
+package me.kzv.okvue.modules.account.validator;
 
 import lombok.RequiredArgsConstructor;
-import me.kzv.okvue.web.account.AccountRepository;
-import me.kzv.okvue.web.account.dto.SignupRequestDto;
+import me.kzv.okvue.modules.account.AccountRepository;
+import me.kzv.okvue.modules.account.dto.SignupRequestDto;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

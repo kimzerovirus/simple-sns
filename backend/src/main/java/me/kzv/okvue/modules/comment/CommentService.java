@@ -1,4 +1,4 @@
-package me.kzv.okvue.web.comment;
+package me.kzv.okvue.modules.comment;
 
 public class CommentService {
 }

@@ -1,11 +1,11 @@
-package me.kzv.okvue.web.account;
+package me.kzv.okvue.modules.account;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum Role {
+public enum Authority {
 
     ADMIN("ROLE_ADMIN","관리자"),
     GUEST("ROLE_GUEST","손님"), // 이메일 인증을 받지 않은 회원

@@ -1,4 +1,4 @@
-package me.kzv.okvue.web.account;
+package me.kzv.okvue.modules.account;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

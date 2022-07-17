@@ -1,11 +1,7 @@
-package me.kzv.okvue.modules.board;
+package me.kzv.okvue.modules.post;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
 
-public interface FreeRepository extends JpaRepository<Free, Long> {
-    Optional<Free> findByIdx(Long idx);
-
-    long deleteByIdx(Long idx);
+public interface PostRepository extends JpaRepository<Post, Long> {
 }

@@ -1,4 +1,4 @@
-package me.kzv.okvue.web.excel;
+package me.kzv.okvue.modules.excel;
 
 public class ExcelController {
 }

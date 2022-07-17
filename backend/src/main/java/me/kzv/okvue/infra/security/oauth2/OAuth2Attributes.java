@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.kzv.okvue.web.account.Account;
-import me.kzv.okvue.web.account.LoginType;
-import me.kzv.okvue.web.account.Role;
+import me.kzv.okvue.modules.account.Account;
+import me.kzv.okvue.modules.account.LoginType;
+import me.kzv.okvue.modules.account.Authority;
 
 import java.util.Map;
 
@@ -27,7 +27,7 @@ public class OAuth2Attributes {
                 .nickname(nickname)
                 .email(email)
                 .profileImage(profileImage)
-                .role(Role.GUEST) //처음 가입한 유저는 guest로 부여한다.
+                .authority(Authority.GUEST) //처음 가입한 유저는 guest로 부여한다.
                 .loginType(loginType)
                 .build();
     }

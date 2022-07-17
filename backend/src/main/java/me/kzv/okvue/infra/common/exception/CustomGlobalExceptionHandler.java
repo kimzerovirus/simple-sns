@@ -1,4 +1,4 @@
-package me.kzv.okvue.modules.common.exception;
+package me.kzv.okvue.infra.common.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

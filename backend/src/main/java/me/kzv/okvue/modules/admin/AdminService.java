@@ -1,4 +1,4 @@
-package me.kzv.okvue.web.admin;
+package me.kzv.okvue.modules.admin;
 
 import org.springframework.stereotype.Service;
 

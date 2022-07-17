@@ -1,4 +1,4 @@
-package me.kzv.okvue.web.account.dto;
+package me.kzv.okvue.modules.account.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

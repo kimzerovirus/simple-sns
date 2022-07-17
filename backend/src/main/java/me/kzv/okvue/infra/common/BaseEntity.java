@@ -1,4 +1,4 @@
-package me.kzv.okvue.modules.common;
+package me.kzv.okvue.infra.common;
 
 import lombok.Getter;
 import org.hibernate.annotations.Comment;

@@ -1,9 +1,6 @@
-package me.kzv.okvue.web.account.dto;
+package me.kzv.okvue.modules.account.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @NoArgsConstructor

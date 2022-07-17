@@ -1,8 +1,8 @@
-package me.kzv.okvue.web.file;
+package me.kzv.okvue.modules.file;
 
 import lombok.RequiredArgsConstructor;
-import me.kzv.okvue.web.common.dto.ResponseDto;
-import me.kzv.okvue.web.file.dto.UploadResponseDto;
+import me.kzv.okvue.infra.common.dto.ResponseDto;
+import me.kzv.okvue.modules.file.dto.UploadResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

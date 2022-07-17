@@ -1,4 +1,4 @@
-package me.kzv.okvue.modules.common.dto;
+package me.kzv.okvue.infra.common.dto;
 
 import lombok.NoArgsConstructor;
 import lombok.ToString;

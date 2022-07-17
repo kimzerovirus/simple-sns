@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 // h2-console설정
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/", "/login", "/admin/login", "/api/v1/login").permitAll()
+                .antMatchers("/", "/login", "/admin/login", "/api/v1/account").permitAll()
 //                .antMatchers("/api/v1/**").hasRole(Role.USER.name())
 //                .anyRequest().authenticated()
                 .antMatchers("/admin/**").authenticated()

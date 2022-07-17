@@ -1,7 +1,7 @@
-package me.kzv.okvue.web.file;
+package me.kzv.okvue.modules.file;
 
 import lombok.extern.log4j.Log4j2;
-import me.kzv.okvue.web.file.dto.UploadResponseDto;
+import me.kzv.okvue.modules.file.dto.UploadResponseDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,10 +1,10 @@
-package me.kzv.okvue.web.account;
+package me.kzv.okvue.modules.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.kzv.okvue.web.common.BaseEntity;
+import me.kzv.okvue.infra.common.BaseEntity;
 
 import javax.persistence.*;
 
@@ -34,7 +34,7 @@ public class Account extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Role role;
+    private Authority authority;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -42,11 +42,10 @@ public class Account extends BaseEntity {
 
     public Account updateProfile(String profileImage) {
         this.profileImage = profileImage;
-
         return this;
     }
 
     public String getAuthority(){
-        return this.role.getKey();
+        return this.authority.getKey();
     }
 }
