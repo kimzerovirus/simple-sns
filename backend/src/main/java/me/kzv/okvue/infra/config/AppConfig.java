@@ -3,9 +3,6 @@ package me.kzv.okvue.infra.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 public class AppConfig {
@@ -14,6 +11,12 @@ public class AppConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    // 시큐리티에서 로그인 된 사용자 정보를 가져와 등록자 자동 처리
+//    @Bean
+//    public AuditorAware<String> auditorProvider() {
+//        return () -> Optional.of(SecurityUtils.getCurrentMemberId());
+//    }
 
 //    // 로컬 테스트용 설정
 //    @Bean

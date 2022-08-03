@@ -27,7 +27,7 @@ public class OAuth2Attributes {
                 .nickname(nickname)
                 .email(email)
                 .profileImage(profileImage)
-                .authority(Authority.GUEST) //처음 가입한 유저는 guest로 부여한다.
+//                .authority(Authority.GUEST)
                 .loginType(loginType)
                 .build();
     }

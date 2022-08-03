@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import me.kzv.okvue.modules.account.Account;
 import me.kzv.okvue.modules.account.AccountRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -39,25 +42,31 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         Account account = getAccount(attributes);
         log.info(account);
 
-        return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(account.getAuthority())),
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(account.getAuthority());
+
+        return new DefaultOAuth2User(Collections.singleton(grantedAuthority),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey());
     }
 
     private Account getAccount(OAuth2Attributes attributes) {
+        return accountRepository.findByEmail(attributes.getEmail()).orElseGet(() -> accountRepository.save(attributes.toEntity()));
 
-        Optional<Account> account = accountRepository.findByEmail(attributes.getEmail());
+        // orElse 메소드는 해당 값이 null 이든 아니든 관계없이 항상 호출
+        // orElseGet은 null일 때만 호출인듯?
 
-        if (account.isPresent()){
-            // profile 업데이트 할 경우
-//            Account updateAccount = account.get().updateProfile(attributes.getProfileImage());
-//            return accountRepository.save(updateAccount);
-            // 업데이트 안하고 그냥 반환할 경우
-            return account.get();
-        } else {
-            // 소셜 아이디로 처음 로그인 할 경우
-            return accountRepository.save(attributes.toEntity());
-        }
+//        Optional<Account> account = accountRepository.findByEmail(attributes.getEmail());
+//
+//        if (account.isPresent()){
+//            // profile 업데이트 할 경우
+////            Account updateAccount = account.get().updateProfile(attributes.getProfileImage());
+////            return accountRepository.save(updateAccount);
+//            // 업데이트 안하고 그냥 반환할 경우
+//            return account.get();
+//        } else {
+//            // 소셜 아이디로 처음 로그인 할 경우
+//            return accountRepository.save(attributes.toEntity());
+//        }
     }
 
 //

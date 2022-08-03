@@ -5,9 +5,9 @@ import me.kzv.okvue.infra.security.jwt.JwtAccessDeniedHandler;
 import me.kzv.okvue.infra.security.jwt.JwtAuthenticationEntryPoint;
 import me.kzv.okvue.infra.security.jwt.JwtAuthenticationFilter;
 import me.kzv.okvue.infra.security.jwt.JwtTokenProvider;
-import me.kzv.okvue.infra.security.oauth2.CustomOAuth2UserService;
 import me.kzv.okvue.infra.security.oauth2.CustomOAuth2FailureHandler;
 import me.kzv.okvue.infra.security.oauth2.CustomOAuth2SuccessHandler;
+import me.kzv.okvue.infra.security.oauth2.CustomOAuth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,7 +39,6 @@ public class SecurityConfig {
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
-
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 

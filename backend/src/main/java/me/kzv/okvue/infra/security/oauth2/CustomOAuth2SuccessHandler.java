@@ -2,6 +2,8 @@ package me.kzv.okvue.infra.security.oauth2;
 
 import lombok.extern.log4j.Log4j2;
 import me.kzv.okvue.infra.security.jwt.JwtTokenProvider;
+import me.kzv.okvue.infra.utils.CookieUtils;
+import me.kzv.okvue.modules.account.dto.TokenDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -21,10 +24,12 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     private final JwtTokenProvider tokenProvider;
     private final String redirectUrl;
+    private final CookieUtils cookieUtils;
 
-    public CustomOAuth2SuccessHandler(JwtTokenProvider tokenProvider, @Value("${oauth2.authorized-redirect-url}") String redirectUrl) {
+    public CustomOAuth2SuccessHandler(JwtTokenProvider tokenProvider, @Value("${oauth2.authorized-redirect-url}") String redirectUrl, CookieUtils cookieUtils) {
         this.tokenProvider = tokenProvider;
         this.redirectUrl = redirectUrl;
+        this.cookieUtils = cookieUtils;
     }
 
     @Override
@@ -35,11 +40,11 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
             return;
         }
 
-        DefaultOAuth2User auth2User = (DefaultOAuth2User) authentication.getPrincipal();
-
-        String email = (String) auth2User.getAttributes().get("email");
-        String nickname = (String) auth2User.getAttributes().get("name"); // naver kakao는 반환 키값 확인 필요
-        String role = auth2User.getAuthorities().stream().collect(Collectors.toList()).get(0).toString().substring(5);
+//        DefaultOAuth2User auth2User = (DefaultOAuth2User) authentication.getPrincipal();
+//
+//        String email = (String) auth2User.getAttributes().get("email");
+//        String nickname = (String) auth2User.getAttributes().get("name"); // naver kakao는 반환 키값 확인 필요
+//        String role = auth2User.getAuthorities().stream().collect(Collectors.toList()).get(0).toString().substring(5);
 
 
 //        auth2User.getAttributes().forEach((item, index) -> log.info(item));
@@ -48,9 +53,19 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 //        // 스프링 시큐리티에서 권한 부어하면 prefix ROLE_이 붙으므로 잘라준다.
 //        log.info(auth2User.getAuthorities().stream().collect(Collectors.toList()).get(0).toString().substring(5));
 
+        TokenDto token = tokenProvider.create(authentication);
 
-        final String token = null;
-        final String targetUrl = UriComponentsBuilder.fromUriString(redirectUrl).queryParam("token", token).build().toString();
+        Cookie accessCookie = cookieUtils.createNormalCookie("ac_token", token.getAccessToken(), token.getAccessTokenExpiresIn().intValue());
+        Cookie refreshCookie = cookieUtils.createHttpOnlyCookie("rf_token", token.getRefreshToken(), token.getRefreshTokenExpiresIn().intValue());
+
+        response.addCookie(accessCookie);
+        response.addCookie(refreshCookie);
+
+
+//        final String token = null;
+//        final String targetUrl = UriComponentsBuilder.fromUriString(redirectUrl).queryParam("token", token).build().toString();
+        final String targetUrl = "http://localhost:8080";
+
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 }

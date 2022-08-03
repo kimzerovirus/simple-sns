@@ -4,6 +4,8 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
+import me.kzv.okvue.modules.account.RefreshToken;
+import me.kzv.okvue.modules.account.RefreshTokenRepository;
 import me.kzv.okvue.modules.account.dto.TokenDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Key;
 import java.time.Instant;
@@ -35,16 +38,22 @@ public class JwtTokenProvider {
     private static final Date refreshTokenExpiresIn = Date.from(Instant.now().plus(REFRESH_TOKEN_EXPIRE_DAYS, ChronoUnit.DAYS));
 
     private final Key SECRET_KEY;
+    private final RefreshTokenRepository refreshTokenRepository;
 
-    public JwtTokenProvider(@Value("${jwt.secret}") String key) {
+    public JwtTokenProvider(@Value("${jwt.secret}") String key, RefreshTokenRepository refreshTokenRepository) {
         this.SECRET_KEY = Keys.hmacShaKeyFor(Decoders.BASE64.decode(key));
+        this.refreshTokenRepository = refreshTokenRepository;
     }
 
+    @Transactional
     public TokenDto create(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
+        log.info(authentication.getName());
+
+        // access 토큰 발급
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
@@ -53,16 +62,21 @@ public class JwtTokenProvider {
                 .setIssuer(ISSUER_NAME)
                 .compact();
 
+        // refresh 토큰 발급
         String refreshToken = Jwts.builder()
                 .setExpiration(refreshTokenExpiresIn)
                 .signWith(SECRET_KEY, SignatureAlgorithm.HS512)
                 .compact();
+
+        // refresh 토큰 db 저장 - email pk
+        saveOrUpdate(authentication, refreshToken);
 
         return TokenDto.builder()
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
                 .accessTokenExpiresIn(accessTokenExpiresIn.getTime())
                 .refreshToken(refreshToken)
+                .refreshTokenExpiresIn(refreshTokenExpiresIn.getTime())
                 .build();
     }
 
@@ -118,4 +132,17 @@ public class JwtTokenProvider {
             return e.getClaims();
         }
     }
+
+    private void saveOrUpdate(Authentication authentication, String refreshToken) {
+        RefreshToken saveRefreshToken = refreshTokenRepository.findByEmail(authentication.getName()).map(entity -> entity.update(refreshToken))
+                .orElse(RefreshToken.builder()
+                        .email(authentication.getName())
+                        .value(refreshToken)
+                        .build());
+
+        refreshTokenRepository.save(saveRefreshToken);
+    }
+
 }
+
+

@@ -3,10 +3,8 @@ package me.kzv.okvue.modules.account;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import me.kzv.okvue.infra.security.jwt.JwtTokenProvider;
-import me.kzv.okvue.modules.account.dto.LoginRequestDto;
-import me.kzv.okvue.modules.account.dto.SignupRequestDto;
-import me.kzv.okvue.modules.account.dto.TokenDto;
-import me.kzv.okvue.modules.account.dto.TokenRequestDto;
+import me.kzv.okvue.infra.utils.SecurityUtils;
+import me.kzv.okvue.modules.account.dto.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -48,16 +46,6 @@ public class AccountService {
         // 3. 인증 정보를 기반으로 jwt 토큰 생성
         TokenDto token = tokenProvider.create(authentication);
 
-        // 4. RefreshToken 저장
-        RefreshToken refreshToken = RefreshToken.builder()
-                .email(authentication.getName())
-                .value(token.getRefreshToken())
-                .build();
-
-        log.info(authentication.getName());
-
-        refreshTokenRepository.save(refreshToken);
-
         return token;
     }
 
@@ -75,6 +63,7 @@ public class AccountService {
         RefreshToken refreshToken = refreshTokenRepository.findByEmail(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("로그아웃 된 사용자입니다."));
 
+        // TODO 쿠키에서 값 가져오는 것으로 수정할 것
         // 4. RefreshToken 일치하는지 검사
         if (!refreshToken.getValue().equals(dto.getRefreshToken())) {
             throw new RuntimeException("토큰의 유저 정보가 일치하지 않습니다.");
@@ -84,10 +73,21 @@ public class AccountService {
         TokenDto newToken = tokenProvider.create(authentication);
         log.info(newToken);
 
-        // 6. 저장소 정보 업데이트
-        RefreshToken newRefreshToken = refreshToken.update(newToken.getRefreshToken());
-        refreshTokenRepository.save(newRefreshToken);
+//        // 6. 저장소 정보 업데이트 - tokenProvider 로 업데이트 메서드 뺌
+//        RefreshToken newRefreshToken = refreshToken.update(newToken.getRefreshToken());
+//        refreshTokenRepository.save(newRefreshToken);
 
         return newToken;
     }
+
+    @Transactional(readOnly = true)
+    public LoginResponseDto getMyInfo(){
+        return accountRepository.findByEmail(SecurityUtils.getCurrentMemberId()).map(LoginResponseDto::of).orElseThrow(()-> new RuntimeException("로그인 유저 정보가 없습니다."));
+    }
+
+    @Transactional
+    public void removeRefreshToken(String email){
+        refreshTokenRepository.deleteById(email);
+    }
+
 }

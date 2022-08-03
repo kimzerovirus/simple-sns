@@ -1,28 +1,30 @@
 <template>
-	<div class="container">
-		<table class="table">
-			<tr>
-				<th>test</th>
-			</tr>
-			<tr v-for="item in data" :key="item.idx">
-				{{
-					item
-				}}
-			</tr>
-		</table>
+	<div>
+		<div class="container my-5">
+			<!-- <table class="table align-middle mb-0 bg-white shadow-sm bg-white rounded"> -->
+			<table class="table align-middle mb-0 bg-white bg-white rounded">
+				<tbody>
+					<ListItem v-for="item in data" :key="item.idx" />
+				</tbody>
+			</table>
+		</div>
 		<Pagination :pageable="pageable" @goPage="goPage" />
 	</div>
 </template>
 
 <script>
 import Pagination from '@/components/Pagination.vue';
+import ListItem from '@/components/ListItem.vue';
 export default {
 	components: {
 		Pagination,
+		ListItem,
 	},
+
 	data() {
 		return {
 			pageable: {},
+			value: '',
 			data: [],
 		};
 	},

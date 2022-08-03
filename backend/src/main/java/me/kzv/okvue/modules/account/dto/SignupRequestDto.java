@@ -23,7 +23,7 @@ public class SignupRequestDto {
                 .nickname(nickname)
                 .password(passwordEncoder.encode(password))
                 .loginType(LoginType.LOCAL)
-                .authority(Authority.GUEST)
+//                .authority(Authority.GUEST) //처음 가입한 유저는 guest로 부여한다. // 생성자에서 default 초기값 설정
                 .build();
     }
 }

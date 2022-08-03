@@ -50,6 +50,11 @@ const router = new VueRouter({
 			name: 'TEST',
 			component: () => import(/* webpackChunkName: "about" */ '../test/TestComponent.vue'),
 		},
+		{
+			path: '/test-view',
+			name: 'TEST-VIEW',
+			component: () => import(/* webpackChunkName: "about" */ '../components/ListItem copy.vue'),
+		},
 
 		// 404
 		{

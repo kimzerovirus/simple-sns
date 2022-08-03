@@ -11,7 +11,9 @@
 <style lang="scss">
 #app {
 }
-
+body {
+	background-color: #f0f0f0 !important;
+}
 #nav {
 	padding: 30px;
 

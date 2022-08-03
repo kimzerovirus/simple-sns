@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ResponseStatus {
 
-    // TODO 국제화 설정?
     OK(200, "요청이 성공하였습니다."),
     EXTERNAL_API(423, "External Error"),
     SERVER_ERROR(500, "Internal Server Error. 서버 에러 입니다."),

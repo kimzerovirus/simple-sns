@@ -1,5 +1,7 @@
 package me.kzv.okvue.infra.utils;
 
+
+
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
@@ -17,8 +19,10 @@ public class CookieUtils {
     }
 
     public String getCookieValue(HttpServletRequest request, String key) {
-        if (request.getCookies() != null) {
-            for (Cookie cookie : request.getCookies()) {
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
                 if (cookie.getName().equals(key)) {
                     return cookie.getValue();
                 }

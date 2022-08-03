@@ -31,15 +31,15 @@
 
 				<div class="btn-login-group">
 					<button type="submit" class="btn-login">로그인</button>
-					<a class="btn-login btn-google">
+					<a class="btn-login btn-google" href="http://localhost:8080/oauth2/authorization/google">
 						<span class="icon-social icon-google"></span>
 						구글 로그인
 					</a>
-					<a class="btn-login btn-naver">
+					<a class="btn-login btn-naver" href="http://localhost:8080/oauth2/authorization/naver">
 						<span class="icon-social icon-naver"></span>
 						네이버 로그인
 					</a>
-					<a class="btn-login btn-kakao">
+					<a class="btn-login btn-kakao" href="http://localhost:8080/oauth2/authorization/kakao">
 						<span class="icon-social icon-kakao"></span>
 						카카오 로그인
 					</a>

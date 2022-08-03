@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostResponseDto {
-    private Long idx;
+    private Long id;
     private String title;
     private String content;
     private String writer;
-    private Long writerIdx;
+    private Long writerId;
 }

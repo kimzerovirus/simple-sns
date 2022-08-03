@@ -1,4 +1,4 @@
-package me.kzv.okvue.infra.common;
+package me.kzv.okvue.infra.common.entity;
 
 import lombok.Getter;
 import org.hibernate.annotations.Comment;
@@ -6,15 +6,18 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EntityListeners;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-@Getter
-@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseEntity {
+@MappedSuperclass
+@Getter
+public abstract class BaseTimeEntity {
 
     @Comment("생성일")
+    @Column(updatable = false)
     @CreatedDate
     private LocalDateTime createdDate;
 
@@ -22,14 +25,7 @@ public abstract class BaseEntity {
     @LastModifiedDate
     private LocalDateTime modifiedDate;
 
-    @Comment("삭제일")
-    private LocalDateTime removedDate;
+//    @Comment("삭제일")
+//    private LocalDateTime removedDate;
 
-    @Column(columnDefinition = "varchar(255) default 'ACTIVE'")
-    @Enumerated(EnumType.STRING)
-    private ActiveStatus status;
-
-    public void updateStatus(ActiveStatus status){
-        this.status = status;
-    }
 }

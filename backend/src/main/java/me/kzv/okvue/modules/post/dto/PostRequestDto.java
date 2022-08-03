@@ -11,9 +11,9 @@ import me.kzv.okvue.modules.post.PostType;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostRequestDto {
-    private Long idx;
+    private Long id;
     private PostType type;
     private String title;
     private String content;
-    private Long writerIdx;
+    private Long writerId;
 }

@@ -1,5 +1,5 @@
-import { instance } from '@/api';
+import axios from 'axios';
 
 export function testApi() {
-	return instance.get('https://jsonplaceholder.typicode.com/posts');
+	return axios.get('https://jsonplaceholder.typicode.com/posts');
 }

@@ -1,4 +1,4 @@
-package me.kzv.okvue.modules.comment;
+package me.kzv.okvue.modules.reply;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,10 +14,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Comment {
+public class Reply {
 
     @Id @GeneratedValue
-    private Long idx;
+    @Column(name = "reply_id")
+    private Long id;
 
     private String text;
 

@@ -1,4 +1,4 @@
-package me.kzv.okvue.infra.common;
+package me.kzv.okvue.infra.common.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
