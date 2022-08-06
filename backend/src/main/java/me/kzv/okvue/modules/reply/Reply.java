@@ -1,6 +1,6 @@
 package me.kzv.okvue.modules.reply;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,9 +10,7 @@ import me.kzv.okvue.modules.post.Post;
 import javax.persistence.*;
 
 @Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Reply {
 
@@ -27,4 +25,12 @@ public class Reply {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
+
+    @Builder
+    public Reply(Long id, String text, Account commenter, Post post) {
+        this.id = id;
+        this.text = text;
+        this.commenter = commenter;
+        this.post = post;
+    }
 }

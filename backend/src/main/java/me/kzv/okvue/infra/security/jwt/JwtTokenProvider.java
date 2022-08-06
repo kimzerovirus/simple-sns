@@ -133,10 +133,14 @@ public class JwtTokenProvider {
         }
     }
 
+    /**
+     * id 가 존재한다면 토큰만 업데이트하고 그게 아니라면 토큰을 새로 생성한다.
+     */
+    // TODO 기존회원이 로그인해도 토큰이 새로 생성되는 것이니깐 굳이 구별 안해도 될지도?
     private void saveOrUpdate(Authentication authentication, String refreshToken) {
         RefreshToken saveRefreshToken = refreshTokenRepository.findByEmail(authentication.getName()).map(entity -> entity.update(refreshToken))
                 .orElse(RefreshToken.builder()
-                        .email(authentication.getName())
+                        .id(authentication.getName())
                         .value(refreshToken)
                         .build());
 

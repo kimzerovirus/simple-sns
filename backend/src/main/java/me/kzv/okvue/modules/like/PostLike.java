@@ -5,10 +5,8 @@ import me.kzv.okvue.modules.post.Post;
 
 import javax.persistence.*;
 
-@Builder
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @ToString(exclude = "post")
 public class PostLike {
@@ -28,5 +26,13 @@ public class PostLike {
 
     public void updateLikes(LikeType like) {
         this.like = like;
+    }
+
+    @Builder
+    public PostLike(Long id, LikeType like, Long accountId, Post post) {
+        this.id = id;
+        this.like = like;
+        this.accountId = accountId;
+        this.post = post;
     }
 }

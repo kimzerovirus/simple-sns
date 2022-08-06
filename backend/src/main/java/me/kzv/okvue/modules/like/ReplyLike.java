@@ -7,8 +7,7 @@ import javax.persistence.*;
 
 @Builder
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @ToString(exclude = "comment")
 public class ReplyLike {
@@ -26,7 +25,16 @@ public class ReplyLike {
     @ManyToOne(fetch = FetchType.LAZY) // 게시글 하나에 좋아요는 여러개
     private Reply comment;
 
+    @Builder
+    public ReplyLike(Long id, LikeType like, Long accountId, Reply comment) {
+        this.id = id;
+        this.like = like;
+        this.accountId = accountId;
+        this.comment = comment;
+    }
+
     public void updateLikes(LikeType like) {
         this.like = like;
     }
+
 }

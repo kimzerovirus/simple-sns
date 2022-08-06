@@ -6,8 +6,7 @@ import me.kzv.okvue.infra.common.entity.BaseEntity;
 
 import javax.persistence.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 @ToString(exclude = "writer")
