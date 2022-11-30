@@ -1,5 +1,6 @@
 package me.kzv.simpleboardmvc.web.entity;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Getter
-public class Member {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
 
     private String email;
@@ -27,10 +29,9 @@ public class Member {
 
     private Boolean isActive;
 
-    @OneToMany
+    @OneToMany(mappedBy = "member")
     private List<Post> postList = new ArrayList<>();
-
-    @OneToMany
+    @OneToMany(mappedBy = "member")
     private List<Reply> replyList = new ArrayList<>();
 
     @Builder
