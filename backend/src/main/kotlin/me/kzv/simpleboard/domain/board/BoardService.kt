@@ -44,7 +44,7 @@ class BoardService(
 
     fun getWithReplies(boardId: Long) {
         val board = boardRepository.findByIdOrNull(boardId) ?: throw EntityNotFoundException()
-        val reply = replyRepository.findAllByBoard_BoardId(boardId)
+        val reply = replyRepository.findAllByBoard_id(boardId)
     }
 
     @Transactional

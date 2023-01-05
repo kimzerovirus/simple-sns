@@ -6,4 +6,6 @@ import org.springframework.data.domain.Pageable
 
 interface BoardCustomRepository {
     fun search(keyword: String?, searchType: SearchType?, pageable: Pageable): PageDto
+
+    fun getOneWithReplyCount(boardId: Long): BoardWithReplyCount?
 }

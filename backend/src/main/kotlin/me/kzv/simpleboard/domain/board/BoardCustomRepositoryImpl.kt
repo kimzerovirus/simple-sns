@@ -14,18 +14,22 @@ class BoardCustomRepositoryImpl(
 ) : BoardCustomRepository {
 
     override fun search(keyword: String?, searchType: SearchType?, pageable: Pageable): PageDto {
+        // native query
+        // select b.id as board_id, b.title, m.nickname as writer, count(r.id) as reply_count from board b, reply r left join member m on member_id = m.id where b.id = r.board_id group by b.id;
         val content = queryFactory
             .select(
                 QBoardWithReplyCount(
                     board.id.`as`("boardId"),
                     board.title,
+                    board.content,
                     member.nickname.`as`("writer"),
                     reply.count().`as`("replyCount")
                 )
             )
-            .from(board)
+            .from(board, reply)
             .leftJoin(board.writer, member)
-            .groupBy(board.id, reply.board)
+            .where(board.eq(reply.board))
+            .groupBy(board)
             .offset(pageable.offset)
             .limit(pageable.pageSize.toLong())
             .fetch()
@@ -36,5 +40,22 @@ class BoardCustomRepositoryImpl(
             .leftJoin(board.writer, member)
 
         return PageDto(PageableExecutionUtils.getPage(content, pageable) { countQuery.fetchOne()!! })
+    }
+
+    override fun getOneWithReplyCount(boardId: Long): BoardWithReplyCount? {
+        return queryFactory
+            .select(
+                QBoardWithReplyCount(
+                    board.id.`as`("boardId"),
+                    board.title,
+                    board.content,
+                    member.nickname.`as`("writer"),
+                    reply.count().`as`("replyCount")
+                ))
+            .from(board, reply)
+            .leftJoin(board.writer, member)
+            .where(board.id.eq(boardId).and(reply.board.id.eq(boardId)))
+            .groupBy(board)
+            .fetchOne()
     }
 }

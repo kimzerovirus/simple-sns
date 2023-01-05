@@ -4,5 +4,5 @@ import me.kzv.simpleboard.domain.reply.entity.Reply
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface ReplyRepository : JpaRepository<Reply, Long> {
-    fun findAllByBoard_BoardId(boardId: Long): List<Reply>
+    fun findAllByBoard_id(boardId: Long): List<Reply>
 }

@@ -10,6 +10,7 @@ data class BoardSaveRequest(
 data class BoardWithReplyCount @QueryProjection constructor(
     val boardId: Long,
     val title: String,
+    val content: String,
     val writer: String,
     val replyCount: Long,
 )

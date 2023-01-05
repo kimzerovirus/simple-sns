@@ -5,14 +5,14 @@ import me.kzv.simpleboard.domain.BaseEntity
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn
+@DiscriminatorColumn(name = "dtype")
 abstract class UploadImg(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id  : Long? = null,
-    val imgNm: String,
-    val originImgNm: String,
-    val imgUrl: String,
+    open val id  : Long? = null,
+    open val imgNm: String,
+    open val originImgNm: String,
+    open val imgUrl: String,
     @Enumerated(EnumType.STRING)
-    val imgType: ImgType,
+    open val imgType: ImgType,
 ) : BaseEntity()

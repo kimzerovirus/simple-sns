@@ -3,6 +3,7 @@ package me.kzv.simpleboard.domain.board.entity
 import jakarta.persistence.*
 import me.kzv.simpleboard.domain.BaseEntity
 import me.kzv.simpleboard.domain.member.entity.Member
+import me.kzv.simpleboard.domain.reply.entity.Reply
 
 @Entity
 class Board (
