@@ -3,6 +3,7 @@ package me.kzv.simpleboard.domain.img.entity
 import jakarta.persistence.*
 import me.kzv.simpleboard.domain.member.entity.Member
 
+@Entity
 @DiscriminatorValue("Profile")
 class ProfileImg(
     @ManyToOne(fetch = FetchType.LAZY)
@@ -11,4 +12,4 @@ class ProfileImg(
     imgNm: String,
     originImgNm: String,
     imgUrl: String,
-) : UploadImg(imgNm = imgNm, originImgNm = originImgNm, imgUrl = imgUrl, imgType = ImgType.PROFILE)
+) : UploadImg(imgNm = imgNm, originImgNm = originImgNm, imgUrl = imgUrl)

@@ -1,11 +1,9 @@
 package me.kzv.simpleboard.domain.img.entity
 
-import jakarta.persistence.DiscriminatorValue
-import jakarta.persistence.FetchType
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
 import me.kzv.simpleboard.domain.reply.entity.Reply
 
+@Entity
 @DiscriminatorValue("REPLY")
 class ReplyImg(
     @ManyToOne(fetch = FetchType.LAZY)
@@ -14,4 +12,4 @@ class ReplyImg(
     imgNm: String,
     originImgNm: String,
     imgUrl: String,
-) : UploadImg(imgNm = imgNm, originImgNm = originImgNm, imgUrl = imgUrl, imgType = ImgType.REPLY)
+) : UploadImg(imgNm = imgNm, originImgNm = originImgNm, imgUrl = imgUrl)
