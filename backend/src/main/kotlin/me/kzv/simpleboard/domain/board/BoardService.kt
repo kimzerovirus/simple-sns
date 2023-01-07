@@ -1,12 +1,12 @@
 package me.kzv.simpleboard.domain.board
 
 import jakarta.persistence.EntityNotFoundException
+import me.kzv.simpleboard.domain.PageDto
 import me.kzv.simpleboard.domain.board.entity.Board
 import me.kzv.simpleboard.domain.board.entity.SearchType
-import me.kzv.simpleboard.domain.member.MemberRepository
-import me.kzv.simpleboard.domain.PageDto
 import me.kzv.simpleboard.domain.img.UploadImgRepository
-import me.kzv.simpleboard.domain.reply.ReplyRepository
+import me.kzv.simpleboard.domain.member.MemberRepository
+import me.kzv.simpleboard.domain.reply.ReplyService
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional
 class BoardService(
     private val boardRepository: BoardRepository,
     private val memberRepository: MemberRepository,
-    private val replyRepository: ReplyRepository,
     private val imgRepository: UploadImgRepository,
+    private val replyService: ReplyService,
 ) {
 
     @Transactional
@@ -43,10 +43,11 @@ class BoardService(
     }
 
 
-    fun getWithReplies(boardId: Long) {
-        val board = boardRepository.getOneWithReplyCount(boardId) ?: throw EntityNotFoundException()
-//        board.imgs = imgRepository.getByBoard(boardId)
-//        val reply = replyRepository.findAllByBoard_id(boardId)
+    fun getBoardWithReplies(boardId: Long): BoardResponse {
+        val boardDto = boardRepository.getOneWithReplyCount(boardId) ?: throw EntityNotFoundException()
+        boardDto.imgs = imgRepository.getImgsByBoardId(boardId)
+        val replyDtoList = replyService.getRepliesWithImgs(boardId)
+        return BoardResponse(boardDto, replyDtoList)
     }
 
     @Transactional

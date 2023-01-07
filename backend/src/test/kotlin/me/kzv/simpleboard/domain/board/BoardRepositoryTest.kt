@@ -2,6 +2,8 @@ package me.kzv.simpleboard.domain.board
 
 import jakarta.persistence.EntityNotFoundException
 import me.kzv.simpleboard.domain.board.entity.Board
+import me.kzv.simpleboard.domain.img.UploadImgRepository
+import me.kzv.simpleboard.domain.img.entity.BoardImg
 import me.kzv.simpleboard.domain.member.MemberRepository
 import me.kzv.simpleboard.domain.member.entity.Member
 import me.kzv.simpleboard.domain.member.entity.SocialType
@@ -13,21 +15,27 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.PageRequest
+import org.springframework.data.repository.findByIdOrNull
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 @SpringBootTest
 class BoardRepositoryTest {
 
     @Autowired lateinit var boardRepository: BoardRepository
     @Autowired lateinit var memberRepository: MemberRepository
     @Autowired lateinit var replyRepository: ReplyRepository
+    @Autowired lateinit var imgRepository: UploadImgRepository
 
     @BeforeEach
-    fun create(){
+    fun create() {
         val member = memberRepository.save(Member("test", "test", SocialType.NAVER))
-        val board = boardRepository.save(Board("test","test123", member))
-        replyRepository.save(Reply(board=board, replier = member, content = "test reply1", parenId = null))
-        replyRepository.save(Reply(board=board, replier = member, content = "test reply2", parenId = null))
-        replyRepository.save(Reply(board=board, replier = member, content = "test reply3", parenId = null))
+        val board = boardRepository.save(Board("test", "test123", member))
+        val boardImg = BoardImg(board, "imgNm", "originImgNm", "imgUrl")
+        replyRepository.save(Reply(board = board, replier = member, content = "test reply1", parenId = null))
+        replyRepository.save(Reply(board = board, replier = member, content = "test reply2", parenId = null))
+        replyRepository.save(Reply(board = board, replier = member, content = "test reply3", parenId = null))
+        imgRepository.save(boardImg)
     }
 
     @Test

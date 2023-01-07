@@ -23,8 +23,7 @@ class BoardCustomRepositoryImpl(
                     board.title,
                     board.content,
                     member.nickname.`as`("writer"),
-                    reply.count().`as`("replyCount"),
-                    null // 이미지 리스트는 따로 가져와야 함
+                    reply.count().`as`("replyCount")
                 ))
             .from(board, reply)
             .leftJoin(board.writer, member)
@@ -50,8 +49,7 @@ class BoardCustomRepositoryImpl(
                     board.title,
                     board.content,
                     member.nickname.`as`("writer"),
-                    reply.count().`as`("replyCount"),
-                    null
+                    reply.count().`as`("replyCount")
                 ))
             .from(board, reply)
             .leftJoin(board.writer, member)
