@@ -38,6 +38,8 @@ class BoardCustomRepositoryImpl(
             .from(board)
             .leftJoin(board.writer, member)
 
+//        val tagList = queryFactory.select(board).from(board).fetch()
+
         return PageDto(PageableExecutionUtils.getPage(content, pageable) { countQuery.fetchOne()!! })
     }
 

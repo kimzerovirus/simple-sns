@@ -4,6 +4,7 @@ import jakarta.persistence.*
 import me.kzv.simpleboard.domain.BaseEntity
 import me.kzv.simpleboard.domain.member.entity.Member
 import me.kzv.simpleboard.domain.reply.entity.Reply
+import me.kzv.simpleboard.domain.tag.entity.Tag
 
 @Entity
 class Board (
@@ -14,7 +15,7 @@ class Board (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id  : Long? = null
+    val id: Long? = null
 
     @Column(nullable = false)
     var title: String = title
@@ -28,8 +29,16 @@ class Board (
     @JoinColumn(name = "member_id")
     val writer: Member = writer
 
+    @ManyToMany
+    val tags: MutableSet<Tag> = mutableSetOf()
+
     fun update(title: String, content: String) {
         this.title = title
         this.content = content
     }
+
+    fun addTag(tag: Tag){
+        tags.add(tag)
+    }
+
 }

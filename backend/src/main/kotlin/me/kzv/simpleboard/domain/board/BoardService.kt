@@ -62,4 +62,5 @@ class BoardService(
         // 1. 게시글 수정
         // 2. 이미지 수정
     }
+
 }

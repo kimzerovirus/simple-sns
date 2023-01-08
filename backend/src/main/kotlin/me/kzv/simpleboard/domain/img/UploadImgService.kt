@@ -11,5 +11,5 @@ class UploadImgService(
     private val fileService: FileService,
 ){
     fun getBoardImgs(boardId: Long): List<ImgResponse> = uploadImgRepository.getBoardImgsByBoardId(boardId)
-    fun getReplyImgs(replyId: Long): List<ReplyImg> = uploadImgRepository.getReplyImgsByBoardId(replyId)
+    fun getReplyImgs(boardId: Long): List<ReplyImg> = uploadImgRepository.getReplyImgsByBoardId(boardId)
 }
