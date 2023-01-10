@@ -1,5 +1,5 @@
-import Head from 'next/head';
+import Container from 'src/components/layout/Container';
 
 export default function Home() {
-	return <></>;
+	return <Container>asdfasdf</Container>;
 }

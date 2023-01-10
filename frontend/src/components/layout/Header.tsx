@@ -1,11 +1,10 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import React, { FC, useEffect, useState } from 'react';
+import { categoryList } from 'src/static/data';
 
-const menuList = [
-	{ title: '커뮤니티', href: '/' },
-	{ title: '실시간 채팅', href: '/' },
-];
+import Container from './Container';
 
 const Header = () => {
 	const [notificationToggle, setNotificationToggle] = useState(false);
@@ -16,19 +15,19 @@ const Header = () => {
 
 	return (
 		<header className="sticky top-0 z-20 flex h-16 items-center border-b border-b-gray-500/30 bg-white py-5 text-sm font-medium leading-6 dark:border-b-gray-500/70 dark:bg-gray-800">
-			<nav className="mx-auto flex w-full max-w-7xl px-4 lg:px-0">
-				<div className="flx w-full items-center justify-between">
+			<Container>
+				<nav className="w-full items-center justify-between">
 					<div className="flex">
 						<Link href="/" className="flex items-center">
 							<h1 className="text-xl">KIMZEROVIRUS</h1>
 						</Link>
 						<div className="ml-3 hidden items-center space-x-7 md:flex lg:ml-[105px] md:ml-[70px]">
-							{menuList.map((menuItem, i) => (
+							{categoryList.map((category, i) => (
 								<NavItem
 									key={i}
-									title={menuItem.title}
-									href={menuItem.href}
-									isBorder={i !== menuList.length - 1}
+									title={category.title}
+									href={category.href}
+									isBorder={i !== categoryList.length - 1}
 								/>
 							))}
 						</div>
@@ -60,8 +59,8 @@ const Header = () => {
 							)}
 						</div>
 					</div>
-				</div>
-			</nav>
+				</nav>
+			</Container>
 		</header>
 	);
 };
@@ -74,19 +73,25 @@ interface NavItemProps {
 	isBorder: boolean;
 }
 
-const NavItem: FC<NavItemProps> = ({ title, href, isBorder }) => (
-	<>
-		<div className="shrink-0">
-			<Link
-				className="text-gray-900 hover:text-purple-600 dark:text-gray-100 dark:hover:text-purple-300 text-sm font-medium hover:no-underline"
-				href={href}
-			>
-				{title}
-			</Link>
-		</div>
-		{isBorder ? <div className="h-3 w-[1px] bg-gray-400 dark:bg-gray-400/70"></div> : <></>}
-	</>
-);
+const NavItem: FC<NavItemProps> = ({ title, href, isBorder }) => {
+	const { asPath } = useRouter();
+	return (
+		<>
+			<div className="shrink-0">
+				<Link
+					className={
+						(asPath.startsWith(`/${href}`) ? 'text-purple-600 dark:text-purple-300 ' : '') +
+						' hover:text-purple-600 dark:hover:text-purple-300 text-sm font-medium hover:no-underline'
+					}
+					href={href}
+				>
+					{title}
+				</Link>
+			</div>
+			{isBorder ? <div className="h-3 w-[1px] bg-gray-400 dark:bg-gray-400/70"></div> : <></>}
+		</>
+	);
+};
 
 const ThemeToggleBtn = () => {
 	const { theme, setTheme } = useTheme();
@@ -110,7 +115,7 @@ interface NotificationBoxHandler {
 
 const NotificationBox: FC<NotificationBoxHandler> = ({ handler }) => {
 	return (
-		<div className="fixed md:absolute top-[64px] md:top-[46px] right-0 z-20 w-full md:w-96 origin-top transform opacity-100 translate-y-0 bg-white dark:bg-gray-800 border border-gray-500/30 dark:border-gray-500/70">
+		<div className="fixed md:absolute top-[64px] md:top-[46px] right-0 z-20 w-full md:w-96 bg-white dark:bg-gray-800 border border-gray-500/30 dark:border-gray-500/70">
 			<div className="flex items-center justify-between border-b border-b-gray-500/30 bg-gray-50 py-3 px-6 text-sm font-medium leading-4 text-gray-900 dark:border-b-gray-500/70 dark:bg-gray-700 dark:text-gray-100">
 				<span className="text-md">알림</span>
 				<i

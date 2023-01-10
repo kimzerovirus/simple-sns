@@ -1,12 +1,15 @@
 import '../styles/globals.css';
 
 import type { AppProps } from 'next/app';
-import DefaultLayout from 'src/components/DefaultLayout';
+import { ThemeProvider } from 'next-themes';
+import DefaultLayout from 'src/components/layout/DefaultLayout';
 
 export default function App({ Component, pageProps }: AppProps) {
 	return (
-		<DefaultLayout>
-			<Component {...pageProps} />
-		</DefaultLayout>
+		<ThemeProvider attribute="class">
+			<DefaultLayout>
+				<Component {...pageProps} />
+			</DefaultLayout>
+		</ThemeProvider>
 	);
 }
