@@ -1,52 +1,43 @@
-import { ThemeProvider, useHelpers, useRemirrorContext, useTheme } from '@remirror/react';
+import { useHelpers, useRemirrorContext } from '@remirror/react';
+import { OnChangeJSON } from '@remirror/react';
 import { WysiwygEditor } from '@remirror/react-editors/wysiwyg';
+import { useTheme } from 'next-themes';
 import React, { useCallback } from 'react';
+import type { RemirrorJSON } from 'remirror';
 import Container from 'src/components/layout/Container';
 
-const Editor: React.FC = () => {
-	const theme = useTheme();
-	console.log(theme);
-	return (
-		<Container>
-			<WysiwygEditor placeholder="Start typing...">
-				<LoadButton />
-				<SaveButton />
-			</WysiwygEditor>
-		</Container>
-	);
-};
+// https://github.com/remirror/remirror-examples/blob/main/with-nextjs/components/editor.tsx
+// https://github.com/bprofiro/editor/blob/main/src/components/Editor/index.tsx
 
-export default Editor;
-
-const SAMPLE_DOC = {
-	type: 'doc',
-	content: [
-		{
-			type: 'paragraph',
-			attrs: { dir: null, ignoreBidiAutoUpdate: null },
-			content: [{ type: 'text', text: 'Loaded content' }],
-		},
-	],
-};
-
-function LoadButton() {
-	const { setContent } = useRemirrorContext();
-	const handleClick = useCallback(() => setContent(SAMPLE_DOC), [setContent]);
-
-	return (
-		<button onMouseDown={event => event.preventDefault()} onClick={handleClick}>
-			Load
-		</button>
-	);
+interface EditorProps {
+	setContent: (slug: string | RemirrorJSON) => void;
 }
 
-function SaveButton() {
-	const { getJSON } = useHelpers();
-	const handleClick = useCallback(() => alert(JSON.stringify(getJSON())), [getJSON]);
+const SaveButton: React.FC<EditorProps> = ({ setContent }) => {
+	const { getHTML, getJSON } = useHelpers();
+	const handleClick = useCallback(() => {
+		const html = getHTML();
+		const json = getJSON();
+		setContent(html);
+		// alert(JSON.stringify(getJSON()));
+		console.log(new DOMParser().parseFromString(html, 'text/xml'));
+	}, [getHTML]);
 
 	return (
 		<button onMouseDown={event => event.preventDefault()} onClick={handleClick}>
 			Save
 		</button>
 	);
-}
+};
+
+const Editor: React.FC<EditorProps> = ({ setContent }) => {
+	return (
+		<Container>
+			<WysiwygEditor placeholder="Start typing...">
+				<SaveButton setContent={setContent} />
+			</WysiwygEditor>
+		</Container>
+	);
+};
+
+export default Editor;
