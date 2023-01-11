@@ -8,12 +8,10 @@ export interface DefaultLayoutProps {
 
 const DefaultLayout: FC<DefaultLayoutProps> = ({ children }) => {
 	return (
-		<div className="flex h-full flex-col">
+		<div className="flex flex-col min-h-[100vh]">
 			<Header />
-			<div className="flex-[1]">
-				<main>{children}</main>
-			</div>
-			{/* <Footer /> */}
+			<main className="flex-[1]">{children}</main>
+			<Footer />
 		</div>
 	);
 };

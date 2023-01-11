@@ -4,8 +4,6 @@ import { useTheme } from 'next-themes';
 import React, { FC, useEffect, useState } from 'react';
 import { categoryList } from 'src/static/data';
 
-import Container from './Container';
-
 const Header = () => {
 	const [notificationToggle, setNotificationToggle] = useState(false);
 
@@ -15,13 +13,13 @@ const Header = () => {
 
 	return (
 		<header className="sticky top-0 z-20 flex h-16 items-center border-b border-b-gray-500/30 bg-white py-5 text-sm font-medium leading-6 dark:border-b-gray-500/70 dark:bg-gray-800">
-			<Container>
+			<div className="w-full max-w-[1280px] px-4 lg:px-0 mx-auto flex">
 				<nav className="w-full items-center justify-between">
 					<div className="flex">
 						<Link href="/" className="flex items-center">
-							<h1 className="text-xl">KIMZEROVIRUS</h1>
+							<h1 className="text-xl font-bold">KIMZEROVIRUS</h1>
 						</Link>
-						<div className="ml-3 hidden items-center space-x-7 md:flex lg:ml-[105px] md:ml-[70px]">
+						<div className="hidden md:flex ml-[70px] items-center space-x-7">
 							{categoryList.map((category, i) => (
 								<NavItem
 									key={i}
@@ -60,7 +58,7 @@ const Header = () => {
 						</div>
 					</div>
 				</nav>
-			</Container>
+			</div>
 		</header>
 	);
 };
@@ -80,8 +78,8 @@ const NavItem: FC<NavItemProps> = ({ title, href, isBorder }) => {
 			<div className="shrink-0">
 				<Link
 					className={
-						(asPath.startsWith(`/${href}`) ? 'text-purple-600 dark:text-purple-300 ' : '') +
-						' hover:text-purple-600 dark:hover:text-purple-300 text-sm font-medium hover:no-underline'
+						(asPath.startsWith(`/${href}`) ? 'text-primary-main ' : '') +
+						' hover:text-primary-light dark:hover:text-primary-dark text-sm font-semibold hover:no-underline'
 					}
 					href={href}
 				>
@@ -115,11 +113,11 @@ interface NotificationBoxHandler {
 
 const NotificationBox: FC<NotificationBoxHandler> = ({ handler }) => {
 	return (
-		<div className="fixed md:absolute top-[64px] md:top-[46px] right-0 z-20 w-full md:w-96 bg-white dark:bg-gray-800 border border-gray-500/30 dark:border-gray-500/70">
+		<div className="fixed md:absolute top-[64px] md:top-[48px] right-0 z-20 w-full md:w-96 bg-white dark:bg-gray-800 border border-gray-500/30 dark:border-gray-500/70">
 			<div className="flex items-center justify-between border-b border-b-gray-500/30 bg-gray-50 py-3 px-6 text-sm font-medium leading-4 text-gray-900 dark:border-b-gray-500/70 dark:bg-gray-700 dark:text-gray-100">
 				<span className="text-md">알림</span>
 				<i
-					className="text-[24px] hover:text-purple-500 dark:hover:text-purple-200 bx bx-x"
+					className="text-[24px] hover:text-primary-light dark:hover:text-primary-dark bx bx-x"
 					onClick={handler}
 				></i>
 			</div>
@@ -128,13 +126,13 @@ const NotificationBox: FC<NotificationBoxHandler> = ({ handler }) => {
 					href="/"
 					className="flex items-center px-6 py-4 text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600 hover:no-underline dark:text-gray-100 "
 				>
-					<div className="flex">
+					<div className="flex w-full">
 						<img
 							className="w-8 h-8 rounded-full shadow-lg"
 							src="https://avatars.githubusercontent.com/u/68390715?v=4"
 							alt="profile"
 						/>
-						<div className="ml-3 text-sm font-normal">
+						<div className="ml-3 text-sm font-normal w-full">
 							<div className="mb-1 flex justify-between">
 								<span className="text-sm font-semibold">KIMZEROVIRUS</span>
 								<span className="text-sm">약 1시간 전</span>
