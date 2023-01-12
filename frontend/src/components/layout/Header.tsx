@@ -38,7 +38,11 @@ const Header = () => {
 								type="button"
 								onClick={notificationListHandler}
 							>
-								<i className="text-[20px] bx bx-bell"></i>
+								<i className="text-[20px] relative bx bx-bell">
+									<span className="absolute rounded-full bg-orange-500 h-2 w-2 top-0 left-3 text-[10px] text-white font-semibold">
+										{/* 10 -> h-3 w-3*/}
+									</span>
+								</i>
 							</button>
 							<button
 								type="button"
@@ -49,6 +53,12 @@ const Header = () => {
 									src="https://avatars.githubusercontent.com/u/68390715?v=4"
 									alt="profile"
 								/>
+							</button>
+							<button
+								className="inline-flex md:hidden justify-end items-center md:px-3 text-base dark:text-slate-400 focus-outline-none"
+								type="button"
+							>
+								<i className="text-[32px] bx bx-menu text-primary-main"></i>
 							</button>
 							{notificationToggle ? (
 								<NotificationBox handler={() => setNotificationToggle(false)} />

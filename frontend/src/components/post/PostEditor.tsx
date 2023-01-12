@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { FC, useCallback, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import Container from 'src/components/layout/Container';
 import useInput from 'src/hooks/useInput';
 import { categoryList } from 'src/static/data';
@@ -50,7 +50,7 @@ const PostEditor: FC<PostEditorProps> = props => {
 		console.log(tagList);
 		console.log(selectedCategory);
 		console.log(ref.current.getInstance().getHTML());
-		console.log(ref.current.getInstance().getMarkdown());
+		// console.log(ref.current.getInstance().getMarkdown());
 		console.log(title);
 	};
 

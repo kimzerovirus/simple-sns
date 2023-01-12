@@ -1,8 +1,14 @@
 import React from 'react';
+import Container from 'src/components/layout/Container';
+import PostList from 'src/components/post/PostList';
 import { categoryList } from 'src/static/data';
 
 const PostListPage = () => {
-	return <></>;
+	return (
+		<Container>
+			<PostList />
+		</Container>
+	);
 };
 
 export default PostListPage;

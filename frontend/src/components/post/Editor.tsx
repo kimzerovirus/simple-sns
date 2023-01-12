@@ -1,5 +1,6 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 
+import { HookCallback } from '@toast-ui/editor/types/editor';
 // import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import { Editor as TuiEditor } from '@toast-ui/react-editor';
 import { useTheme } from 'next-themes';
@@ -15,6 +16,8 @@ interface EditorProps {
 	editorRef: React.Ref<any>;
 }
 
+type UploadImageHook = ((blob: Blob | File, callback: HookCallback) => void) | undefined;
+
 const Editor: React.FC<EditorProps> = ({ content, editorRef }) => {
 	const { theme } = useTheme();
 	const toolbarItems = [
@@ -26,6 +29,12 @@ const Editor: React.FC<EditorProps> = ({ content, editorRef }) => {
 		// ['code'],
 		['scrollSync'],
 	];
+
+	const onUploadImage: UploadImageHook = async (blob, callback) => {
+		console.log(blob);
+		callback('https://www.naver.com', 'alt text');
+		return false;
+	};
 
 	return (
 		<div className={`${theme === 'dark' ? 'toastui-editor-dark' : ''}`}>
@@ -42,6 +51,9 @@ const Editor: React.FC<EditorProps> = ({ content, editorRef }) => {
 					usageStatistics={false}
 					toolbarItems={toolbarItems}
 					useCommandShortcut={true}
+					hooks={{
+						addImageBlobHook: onUploadImage,
+					}}
 				/>
 			)}
 		</div>

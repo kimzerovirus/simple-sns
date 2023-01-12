@@ -1,7 +1,22 @@
 import React from 'react';
 
+import PostItem from './PostItem';
+
 const PostList = () => {
-	return <></>;
+	return (
+		<>
+			<PostItem />
+			<PostItem />
+			<PostItem />
+			<PostItem />
+			<PostItem />
+			<PostItem />
+			<PostItem />
+			<PostItem />
+			<PostItem />
+			<PostItem />
+		</>
+	);
 };
 
 export default PostList;
