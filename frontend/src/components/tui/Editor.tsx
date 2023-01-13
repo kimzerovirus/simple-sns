@@ -37,7 +37,8 @@ const Editor: React.FC<EditorProps> = ({ content, editorRef }) => {
 	};
 
 	return (
-		<div className={`${theme === 'dark' ? 'toastui-editor-dark' : ''}`}>
+		// tui는 theme props를 제공하지만 처음 만들어질 때 정해진 테마로 고정되므로 동적으로 테마를 설정하려면 직접 클래스를 주고서 분기를 작성한다.
+		<div className={`${theme === 'dark' && 'toastui-editor-dark'}`}>
 			{editorRef && (
 				<TuiEditor
 					placeholder="내용을 입력해주세요."

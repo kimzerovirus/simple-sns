@@ -1,4 +1,5 @@
 import React from 'react';
+import { TagList } from 'src/components/post/Tags';
 
 const PostItem = () => {
 	return (
@@ -32,13 +33,12 @@ const PostItem = () => {
 						</a>
 					</div>
 					<div className="flex">
-						<div className="hidden md:flex flex-1 items-center gap-x-3">
-							<Tag />
-							<Tag />
-							<Tag />
-						</div>
+						<TagList
+							tagList={['태그1', '태그2', '태그3', '태그3', '태그3', '태그3', '태그3', '태그3']}
+							size="xs"
+						/>
 						<div className="w-full flex justify-end items-center gap-x-2 text-gray-700 dark:text-gray-300">
-							<div className="inline-flex items-center space-x-0.5 text-xs sm:text-sm">
+							<div className="flex items-center space-x-0.5 text-xs sm:text-sm">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
@@ -83,13 +83,3 @@ const PostItem = () => {
 };
 
 export default PostItem;
-
-const Tag = () => (
-	<a
-		className="shrink-0 flex rounded space-x-0.5 py-0.5 px-2.5 text-xs font-medium  bg-gray-100 dark:bg-gray-700 dark:text-gray-300 "
-		href="/community/life"
-	>
-		<i className="flex justify-center items-center bx bx-purchase-tag-alt"></i>
-		<span>사는 얘기</span>
-	</a>
-);

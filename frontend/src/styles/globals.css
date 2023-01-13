@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+* { 
+ font-family: 'Noto Sans KR', sans-serif;
+}
+
 ul,li{
     list-style:none;
+}
+
+.toastui-editor-contents p{
+    font-size: 1rem !important;
+    line-height: 1.5rem;
 }

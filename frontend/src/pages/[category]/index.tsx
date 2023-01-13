@@ -1,5 +1,5 @@
 import React from 'react';
-import Container from 'src/components/layout/Container';
+import Container from 'src/components/common/Container';
 import PostList from 'src/components/post/PostList';
 import { categoryList } from 'src/static/data';
 

@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic';
 import React, { FC, useEffect, useRef, useState } from 'react';
-import Container from 'src/components/layout/Container';
+import Container from 'src/components/common/Container';
 import useInput from 'src/hooks/useInput';
 import { categoryList } from 'src/static/data';
 
-const Editor = dynamic(() => import('src/components/post/Editor'), {
+const Editor = dynamic(() => import('src/components/tui/Editor'), {
 	loading: () => <p>Loading editor...</p>,
 	ssr: false,
 });

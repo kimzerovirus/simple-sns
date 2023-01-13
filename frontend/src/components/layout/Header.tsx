@@ -13,13 +13,13 @@ const Header = () => {
 
 	return (
 		<header className="sticky top-0 z-20 flex h-16 items-center border-b border-b-gray-500/30 bg-white py-5 text-sm font-medium leading-6 dark:border-b-gray-500/70 dark:bg-gray-800">
-			<div className="w-full max-w-[1280px] px-4 lg:px-0 mx-auto flex">
+			<div className="w-full max-w-[1280px] px-4 mx-auto flex">
 				<nav className="w-full items-center justify-between">
 					<div className="flex">
 						<Link href="/" className="flex items-center">
 							<h1 className="text-xl font-bold">KIMZEROVIRUS</h1>
 						</Link>
-						<div className="hidden md:flex ml-[70px] items-center space-x-7">
+						<div className="hidden md:flex ml-[80px] items-center space-x-7">
 							{categoryList.map((category, i) => (
 								<NavItem
 									key={i}
@@ -60,10 +60,8 @@ const Header = () => {
 							>
 								<i className="text-[32px] bx bx-menu text-primary-main"></i>
 							</button>
-							{notificationToggle ? (
+							{notificationToggle && (
 								<NotificationBox handler={() => setNotificationToggle(false)} />
-							) : (
-								<></>
 							)}
 						</div>
 					</div>
@@ -91,7 +89,7 @@ const NavItem: FC<NavItemProps> = ({ title, href, isBorder }) => {
 						(asPath.startsWith(`/${href}`) ? 'text-primary-main ' : '') +
 						' hover:text-primary-light dark:hover:text-primary-dark text-sm font-semibold hover:no-underline'
 					}
-					href={href}
+					href={`/${href}`}
 				>
 					{title}
 				</Link>
