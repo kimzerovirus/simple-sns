@@ -22,7 +22,7 @@ interface TagProps {
 
 export const Tag: React.FC<TagProps> = ({ name, size }) => (
 	<a
-		className={`shrink-0 flex rounded space-x-0.5 font-medium bg-gray-100 dark:bg-gray-700 dark:text-gray-300 py-0.5 px-2.5 text-${size}`}
+		className={`shrink-0 flex rounded space-x-0.5 font-medium bg-gray-100 dark:bg-gray-700 dark:text-gray-300 py-0.5 px-2 text-${size}`}
 		href="/community/life"
 	>
 		<i className="flex justify-center items-center bx bx-purchase-tag-alt"></i>
