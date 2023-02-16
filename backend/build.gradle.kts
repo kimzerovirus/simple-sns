@@ -6,7 +6,7 @@ plugins {
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
     kotlin("plugin.jpa") version "1.7.22"
-    kotlin("kapt") version "1.7.21" //Querydsl
+//    kotlin("kapt") version "1.7.21" //Querydsl
 }
 
 group = "me.kzv"
@@ -34,12 +34,20 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
 
     // Querydsl 추가
-    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
-    kapt("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties["querydsl.version"]}:jakarta")
-    kapt("jakarta.annotation:jakarta.annotation-api")
-    kapt("jakarta.persistence:jakarta.persistence-api")
-}
+//    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+//    kapt("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties["querydsl.version"]}:jakarta")
+//    kapt("jakarta.annotation:jakarta.annotation-api")
+//    kapt("jakarta.persistence:jakarta.persistence-api")
 
+    // 조회용 쿼리 Querydsl -> JdbcTemplate
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    
+    // jwt 토큰
+    implementation(group = "io.jsonwebtoken", name = "jjwt-api", version = "0.11.2")
+    runtimeOnly(group = "io.jsonwebtoken", name = "jjwt-impl", version = "0.11.2")
+    runtimeOnly(group = "io.jsonwebtoken", name = "jjwt-jackson", version = "0.11.2")
+}
+    
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
