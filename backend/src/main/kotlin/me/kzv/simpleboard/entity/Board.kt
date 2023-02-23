@@ -4,37 +4,26 @@ import jakarta.persistence.*
 
 @Entity
 class Board (
-    title: String,
-    content: String,
-    writer: Member,
-): BaseEntity() {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
-
     @Column(nullable = false)
-    var title: String = title
-        private set
+    var title: String,
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    var content: String = content
-        private set
+    var content: String ,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    val writer: Member = writer
+    val writer: Member,
 
-    @ManyToMany
-    val tags: MutableSet<Tag> = mutableSetOf()
-
+//    @ManyToMany
+//    val tags: MutableSet<Tag> = mutableSetOf(),
+): BaseEntity() {
     fun update(title: String, content: String) {
         this.title = title
         this.content = content
     }
 
-    fun addTag(tag: Tag){
-        tags.add(tag)
-    }
+//    fun addTag(tag: Tag){
+//        tags.add(tag)
+//    }
 
 }

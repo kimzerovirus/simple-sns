@@ -3,7 +3,6 @@ package me.kzv.simpleboard.service
 import jakarta.persistence.EntityNotFoundException
 import me.kzv.simpleboard.controller.dtos.PageResponseDto
 import me.kzv.simpleboard.repository.BoardRepository
-import me.kzv.simpleboard.module.board.BoardResponse
 import me.kzv.simpleboard.entity.Board
 import me.kzv.simpleboard.entity.enums.SearchType
 import me.kzv.simpleboard.repository.UploadImgRepository
@@ -21,32 +20,6 @@ class BoardService(
     private val imgRepository: UploadImgRepository,
     private val replyService: ReplyService,
 ) {
-
-    @Transactional
-    fun register(memberId: Long, title: String, content: String): Long {
-        val writer = memberRepository.findByIdOrNull(memberId) ?: throw EntityNotFoundException()
-        val board = boardRepository.save(Board(title = title, content = content, writer = writer))
-        return board.id!! // TODO 글번호를 리턴하여 글 등록 후 등록된 게시글로 이동
-    }
-
-//    fun getList(keyword: String = "", searchType: SearchType?, pageable: Pageable): PageDto {
-//        return when (searchType) {
-//                SearchType.TITLE -> PageDto(boardRepository.findByTitleContaining(keyword, pageable))
-//                SearchType.NICKNAME -> PageDto(boardRepository.findByWriter_NicknameContaining(keyword, pageable))
-//                SearchType.CONTENT -> PageDto(boardRepository.findByContentContaining(keyword, pageable))
-////                SearchType.HASHTAG -> PageDto(boardRepository.findByHashTag(keyword, pageable))
-//                else -> PageDto(boardRepository.findAll(pageable))
-//            }
-//    }
-
-    fun getListWithReplyCount(keyword: String?, searchType: SearchType?, pageable: Pageable): PageResponseDto {
-
-    }
-
-
-    fun getBoardWithReplies(boardId: Long): BoardResponse {
-
-    }
 
     @Transactional
     fun remove(boardId: Long) {

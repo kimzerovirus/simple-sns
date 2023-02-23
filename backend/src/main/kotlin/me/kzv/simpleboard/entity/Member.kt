@@ -6,36 +6,23 @@ import me.kzv.simpleboard.entity.enums.SocialType
 
 @Entity
 class Member(
-    email: String,
-    nickname: String,
-    socialType: SocialType,
+    @Column(nullable = false)
+    val email: String,
+
+    @Column(nullable = false)
+    var nickname: String,
+
+    var profileUrl: String?, // profile 이미지는 삭제 없이 덧씌워 버리면 될듯
+
+    @Enumerated(EnumType.STRING)
+    var role: Role = Role.USER,
+
+    @Enumerated(EnumType.STRING)
+    val socialType: SocialType,
 ) : BaseEntity() {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
 
-    @Column(nullable = false)
-    val email: String = email
-
-    @Column(nullable = false)
-    var nickname: String = nickname
-        private set
-
-    var profileUrl: String? = null
-        private set
-
-    @Enumerated(EnumType.STRING)
-    var role: Role = Role.USER
-        private set
-
-    @Enumerated(EnumType.STRING)
-    val socialType: SocialType = socialType
-
-    fun updateNickname(nickname: String){
+    fun update(nickname: String, profileUrl: String){
         this.nickname = nickname
-    }
-
-    fun updateProfileUrl(profileUrl: String){
         this.profileUrl = profileUrl
     }
 }

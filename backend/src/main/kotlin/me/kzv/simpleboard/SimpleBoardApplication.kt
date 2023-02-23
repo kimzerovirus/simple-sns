@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class SimpleboardApplication
+class SimpleBoardApplication
 
 fun main(args: Array<String>) {
-    runApplication<SimpleboardApplication>(*args)
+    runApplication<SimpleBoardApplication>(*args)
 }
