@@ -1,6 +1,7 @@
 package me.kzv.simpleboard.entity
 
 import jakarta.persistence.*
+import me.kzv.simpleboard.entity.user.User
 
 @Entity
 class Board (
@@ -8,11 +9,11 @@ class Board (
     var title: String,
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    var content: String ,
+    var content: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    val writer: Member,
+    @JoinColumn(name = "user_id")
+    val writer: User,
 
 //    @ManyToMany
 //    val tags: MutableSet<Tag> = mutableSetOf(),

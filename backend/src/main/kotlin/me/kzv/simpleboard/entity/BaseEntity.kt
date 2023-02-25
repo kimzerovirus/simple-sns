@@ -3,7 +3,9 @@ package me.kzv.simpleboard.entity
 import jakarta.persistence.*
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.LastModifiedBy
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 
+@EntityListeners(AuditingEntityListener::class)
 @MappedSuperclass
 abstract class BaseEntity(
     @Id
@@ -12,9 +14,9 @@ abstract class BaseEntity(
 
     @CreatedBy
     @Column(updatable = false)
-    private val createdBy: String? = null,
+    open var createdBy: String? = null,
 
     @LastModifiedBy
-    private val modifiedBy: String? = null
+    open var modifiedBy: String? = null
 ) : BaseTimeEntity()
 

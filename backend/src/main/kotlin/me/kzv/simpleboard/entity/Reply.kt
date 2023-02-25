@@ -1,6 +1,7 @@
 package me.kzv.simpleboard.entity
 
 import jakarta.persistence.*
+import me.kzv.simpleboard.entity.user.User
 
 @Entity
 class Reply(
@@ -14,8 +15,8 @@ class Reply(
     val board: Board,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    val replier: Member,
+    @JoinColumn(name = "user_id")
+    val replier: User,
 ) : BaseEntity() {
 
 }

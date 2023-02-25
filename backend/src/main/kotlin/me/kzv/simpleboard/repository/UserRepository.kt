@@ -1,7 +1,7 @@
 package me.kzv.simpleboard.repository
 
-import me.kzv.simpleboard.entity.Member
+import me.kzv.simpleboard.entity.user.User
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface MemberRepository : JpaRepository<Member, Long> {
+interface UserRepository : JpaRepository<User, Long> {
 }
