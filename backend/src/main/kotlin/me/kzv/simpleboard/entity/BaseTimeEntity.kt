@@ -12,10 +12,12 @@ import java.time.LocalDateTime
 @EntityListeners(AuditingEntityListener::class)
 @MappedSuperclass
 abstract class BaseTimeEntity (
+
     @CreatedDate
     @Column(updatable = false)
     open var createdAt: LocalDateTime? = null,
 
     @LastModifiedDate
     open var modifiedAt: LocalDateTime? = null
+
 )

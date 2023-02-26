@@ -4,7 +4,6 @@ import jakarta.persistence.EntityManager
 import jakarta.persistence.EntityNotFoundException
 import me.kzv.simpleboard.fixture.UserFixture
 import me.kzv.simpleboard.repository.UserRepository
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -21,7 +20,7 @@ class UserTest{
 
     @Test
     fun auditingTest() {
-        val newUser = UserFixture.get()
+        val newUser = UserFixture.createLocalUser()
 
         userRepository.save(newUser)
         em.flush()
