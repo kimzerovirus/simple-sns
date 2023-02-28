@@ -2,7 +2,6 @@ package me.kzv.simpleboard.service
 
 import me.kzv.simpleboard.repository.BoardRepository
 import me.kzv.simpleboard.entity.Board
-import me.kzv.simpleboard.repository.UploadImgRepository
 import me.kzv.simpleboard.repository.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional
 class BoardService(
     private val boardRepository: BoardRepository,
     private val userRepository: UserRepository,
-    private val imgRepository: UploadImgRepository,
     private val replyService: ReplyService,
 ) {
 

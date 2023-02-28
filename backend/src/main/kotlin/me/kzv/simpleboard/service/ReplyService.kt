@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service
 @Service
 class ReplyService(
     private val replyRepository: ReplyRepository,
-    private val imgService: UploadImgService,
 ) {
 
 }

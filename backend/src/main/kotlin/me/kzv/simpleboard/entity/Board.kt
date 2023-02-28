@@ -19,6 +19,12 @@ class Board (
     @Column(nullable = false)
     var status: ActiveStatus = ActiveStatus.ACTIVE,
 
+    /** 이미지 */
+    @ElementCollection
+    @CollectionTable(name = "board_img", joinColumns = [JoinColumn(name = "post_id")])
+    @Column(name = "upload_img")
+    val imgs: MutableList<BoardImg> = mutableListOf(),
+
     /** 글 작성자 */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

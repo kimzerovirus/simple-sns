@@ -2,7 +2,7 @@ package me.kzv.simpleboard.entity.user
 
 import jakarta.persistence.EntityManager
 import jakarta.persistence.EntityNotFoundException
-import me.kzv.simpleboard.fixture.UserFixture
+import me.kzv.simpleboard.entity.enums.SocialType
 import me.kzv.simpleboard.repository.UserRepository
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +20,7 @@ class UserTest{
 
     @Test
     fun auditingTest() {
-        val newUser = UserFixture.createLocalUser()
+        val newUser = createLocalUser()
 
         userRepository.save(newUser)
         em.flush()
@@ -30,4 +30,12 @@ class UserTest{
         println("유저이름 - " + user.createdBy)
         println("생성날짜 - " + user.createdAt)
     }
+}
+
+fun createLocalUser(email: String = "zerovirus96@gmail.com", nickname: String = "gosu", password: String = "1234"): User {
+    return LocalUser(email = email, nickname = nickname, password = password)
+}
+
+fun createSocialUser(email: String = "zerovirus96@gmail.com", nickname: String = "gosu", socialType: SocialType = SocialType.GOOGLE): User {
+    return SocialUser(email = email, nickname = nickname, socialType = socialType)
 }

@@ -3,8 +3,6 @@ package me.kzv.simpleboard.service
 import me.kzv.simpleboard.entity.enums.SocialType
 import me.kzv.simpleboard.entity.user.LocalUser
 import me.kzv.simpleboard.entity.user.SocialUser
-import me.kzv.simpleboard.entity.user.User
-import me.kzv.simpleboard.fixture.UserFixture
 import me.kzv.simpleboard.repository.UserRepository
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

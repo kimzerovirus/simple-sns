@@ -1,7 +1,7 @@
 package me.kzv.simpleboard.service
 
 import me.kzv.simpleboard.entity.Board
-import me.kzv.simpleboard.fixture.UserFixture
+import me.kzv.simpleboard.entity.user.createLocalUser
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,7 +19,7 @@ class BoardServiceTest {
         //given
         val title = "새로운 게시글 작성"
         val content = "게시글 테스트"
-        val writer = UserFixture.createLocalUser()
+        val writer = createLocalUser()
         val board = Board(title = title, content = content, writer = writer)
 
         //when
