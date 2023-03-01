@@ -15,7 +15,7 @@ class Tag(
     val name: String,
 
     /** 해당 게시글 */
-    @OneToMany(mappedBy = "hashtag")
+    @OneToMany(mappedBy = "tag")
     val boards: MutableSet<BoardTag> = mutableSetOf()
 ): BaseEntity() {
 //    init {

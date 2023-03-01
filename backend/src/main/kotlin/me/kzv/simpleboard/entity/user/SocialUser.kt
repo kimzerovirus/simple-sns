@@ -9,7 +9,7 @@ class SocialUser (
 
     /** 소셜 타입 */
     @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
+    @Column(length = 20)
     val socialType: SocialType,
 
     email: String,

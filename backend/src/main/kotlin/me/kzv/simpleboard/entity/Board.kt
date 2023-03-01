@@ -28,7 +28,7 @@ class Board(
     /** 글 작성자 */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    val writer: User,
+    val user: User,
 
     @OneToMany(mappedBy = "board")
     val tags: MutableSet<BoardTag> = mutableSetOf(),

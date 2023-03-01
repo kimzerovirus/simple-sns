@@ -25,8 +25,8 @@ class BoardTest {
     @Test
     fun `게시글 엔티티 저장 테스트`() {
         //given
-        val writer = userRepository.save(createLocalUser())
-        val board = createBoard(writer = writer)
+        val user = userRepository.save(createLocalUser())
+        val board = createBoard(user = user)
 
         //when
         val savedBoard = boardRepository.save(board)
@@ -43,7 +43,7 @@ class BoardTest {
 fun createBoard(
     title: String = "게시글 테스트",
     content: String = "게시글 내용",
-    writer: User,
+    user: User,
 ): Board {
     val imgs: MutableList<BoardImg> = mutableListOf()
     imgs.add(BoardImg("이미지1", "amazon.s3.com/uuid1"))
@@ -53,6 +53,6 @@ fun createBoard(
         title = title,
         content = content,
         imgs = imgs,
-        writer = writer,
+        user = user,
     )
 }

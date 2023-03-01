@@ -19,8 +19,8 @@ class BoardServiceTest {
         //given
         val title = "새로운 게시글 작성"
         val content = "게시글 테스트"
-        val writer = createLocalUser()
-        val board = Board(title = title, content = content, writer = writer)
+        val user = createLocalUser()
+        val board = Board(title = title, content = content, user = user)
 
         //when
         val savedBoard = boardService.register(board)
@@ -28,6 +28,6 @@ class BoardServiceTest {
         //then
         assertThat(savedBoard.title).isEqualTo(title)
         assertThat(savedBoard.content).isEqualTo(content)
-        assertThat(savedBoard.writer).isEqualTo(writer)
+        assertThat(savedBoard.user).isEqualTo(user)
     }
 }
