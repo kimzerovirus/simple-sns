@@ -1,9 +1,6 @@
 package me.kzv.simpleboard.entity.user
 
-import jakarta.persistence.DiscriminatorValue
-import jakarta.persistence.Entity
-import jakarta.persistence.EnumType
-import jakarta.persistence.Enumerated
+import jakarta.persistence.*
 import me.kzv.simpleboard.entity.enums.SocialType
 
 @Entity
@@ -12,11 +9,12 @@ class SocialUser (
 
     /** 소셜 타입 */
     @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
     val socialType: SocialType,
 
     email: String,
-    nickname: String
 
+    nickname: String
 ): User(email, nickname) {
 
 }

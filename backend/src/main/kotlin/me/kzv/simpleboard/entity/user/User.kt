@@ -19,11 +19,11 @@ import me.kzv.simpleboard.entity.enums.SocialType
 abstract class User(
 
     /** 이메일 */
-    @Column(nullable = false)
+    @Column(length = 50, nullable = false)
     open var email: String,
 
     /** 닉네임 */
-    @Column(nullable = false)
+    @Column(length = 50, nullable = false)
     open var nickname: String,
 
     /** 프로필 이미지 url */
@@ -37,9 +37,7 @@ abstract class User(
     /** 상태 */
     @Column(nullable = false)
     open var status: ActiveStatus = ActiveStatus.ACTIVE,
-
     ) : BaseEntity() {
-
     fun update(nickname: String, profileUrl: String){
         this.nickname = nickname
         this.profileUrl = profileUrl

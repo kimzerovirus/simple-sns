@@ -8,15 +8,15 @@ import me.kzv.simpleboard.entity.user.User
 class Reply(
 
     /** 댓글 내용 */
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", nullable = false)
     var content: String,
 
     /** 계층형 댓글 - 부모 댓글 아이디 */
-    @Column(nullable = true)
     val parentId: Long?,
 
     /** 상태 */
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
     var status: ActiveStatus = ActiveStatus.ACTIVE,
 
     /** 본문 게시글 인덱스 */

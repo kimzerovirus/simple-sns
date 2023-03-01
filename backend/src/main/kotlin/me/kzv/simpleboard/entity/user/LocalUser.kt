@@ -13,6 +13,7 @@ class LocalUser (
     var password: String,
 
     email: String,
+
     nickname: String
 ): User(email, nickname) {
 }

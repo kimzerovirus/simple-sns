@@ -22,9 +22,7 @@ abstract class BaseEntity(
 
     @LastModifiedBy
     open var modifiedBy: String? = null
-
 ) : Serializable, BaseTimeEntity() {
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is BaseEntity) return false
