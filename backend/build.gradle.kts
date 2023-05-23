@@ -1,62 +1,92 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("org.springframework.boot") version "3.0.1"
+    id("org.springframework.boot") version "3.0.2"
     id("io.spring.dependency-management") version "1.1.0"
+    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
     kotlin("plugin.jpa") version "1.7.22"
-//    kotlin("kapt") version "1.7.21" //Querydsl
+    kotlin("plugin.allopen") version "1.7.22"
 }
 
-group = "me.kzv"
-version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
-//    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-//    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.security:spring-security-test")
-
-    // DB2
-    runtimeOnly("com.h2database:h2")
-    runtimeOnly("com.mysql:mysql-connector-j")
-
-    // Querydsl 추가
-//    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
-//    kapt("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties["querydsl.version"]}:jakarta")
-//    kapt("jakarta.annotation:jakarta.annotation-api")
-//    kapt("jakarta.persistence:jakarta.persistence-api")
-
-    // 조회용 쿼리 Querydsl -> JdbcTemplate
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    
-    // jwt 토큰
-    implementation(group = "io.jsonwebtoken", name = "jjwt-api", version = "0.11.2")
-    runtimeOnly(group = "io.jsonwebtoken", name = "jjwt-impl", version = "0.11.2")
-    runtimeOnly(group = "io.jsonwebtoken", name = "jjwt-jackson", version = "0.11.2")
-}
-    
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+subprojects {
+    apply {
+        plugin("java")
+        plugin("org.springframework.boot")
+        plugin("io.spring.dependency-management")
+        plugin("org.jlleitschuh.gradle.ktlint")
+        plugin("kotlin")
+        plugin("kotlin-kapt")
+        plugin("kotlin-spring")
+        plugin("kotlin-jpa")
+        plugin("kotlin-allopen")
+    }
+
+    dependencies {
+        implementation("org.springframework.boot:spring-boot-starter-web")
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+        implementation("org.springframework.boot:spring-boot-starter-validation")
+        implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.0.0")
+
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+        implementation("io.github.microutils:kotlin-logging:1.12.5")
+
+        runtimeOnly("com.mysql:mysql-connector-j")
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
+    }
+
+    allOpen {
+        annotation("jakarta.persistence.Entity")
+        annotation("jakarta.persistence.Embeddable")
+        annotation("jakarta.persistence.MappedSuperclass")
+    }
+
+    group = "me.kzv"
+    version = "0.0.1-SNAPSHOT"
+    java.sourceCompatibility = JavaVersion.VERSION_17
+
+
+    configurations {
+        compileOnly {
+            extendsFrom(configurations.annotationProcessor.get())
+        }
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs = listOf("-Xjsr305=strict")
+            jvmTarget = "17"
+        }
+    }
+
+    tasks.withType<Test> {
+        maxHeapSize = "4096m"
+        useJUnitPlatform()
+        dependsOn(tasks.ktlintCheck)
+    }
+
+    configure<KtlintExtension> {
+        verbose.set(true)
+        disabledRules.addAll("import-ordering", "no-wildcard-imports", "filename", "indent", "parameter-list-wrapping")
+    }
+}
+
+project(":core") {
+    dependencies {
+    }
+
+    tasks.getByName<Jar>("jar") { enabled = true }
+    tasks.getByName<BootJar>("bootJar") { enabled = false }
 }
