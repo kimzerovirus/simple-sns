@@ -26,6 +26,4 @@ class User(
     @Column(length = 50, nullable = false)
     var nickname: String,
 
-    @Column(length = 50, nullable = false)
-    var password: String,
 ) : BaseAggregateRoot<User>()
