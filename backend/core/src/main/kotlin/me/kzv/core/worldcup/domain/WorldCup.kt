@@ -24,15 +24,15 @@ class WorldCup(
     var title: String,
 
     /** 설명 */
-    @Column(length = 50, nullable = false)
+    @Column(nullable = false)
     var description: String,
 
     /** 썸네일1 */
-    @Column(length = 50, nullable = false)
+    @Column(nullable = false)
     val thumbnail1: String,
 
     /** 썸네일2 */
-    @Column(length = 50, nullable = false)
+    @Column(nullable = false)
     val thumbnail2: String,
 
     @ManyToOne

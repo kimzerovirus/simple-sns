@@ -13,10 +13,10 @@ abstract class BaseEntity(
 
     @CreatedDate
     @Column(updatable = false)
-    var createdDate: LocalDateTime,
+    var createdDate: LocalDateTime? = null,
 
     @LastModifiedDate
-    var lastModifiedDate: LocalDateTime
+    var lastModifiedDate: LocalDateTime? = null,
 ) : Serializable {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

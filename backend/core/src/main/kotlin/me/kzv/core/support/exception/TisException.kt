@@ -1,0 +1,12 @@
+package me.kzv.core.support.exception
+
+class TisException(val error: TisError = TisError.UNKNOWN) : RuntimeException(error.messageKey)
+
+enum class TisError(
+    val messageKey: String? = null
+) {
+    UNKNOWN("error.unknown"),
+
+    UNKNOWN_MODEL_TYPE("error.unknown.model.type"),
+
+}
