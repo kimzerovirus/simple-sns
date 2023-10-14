@@ -1,8 +1,8 @@
 package me.kzv.core.worldcupmodel.domain
 
 import jakarta.persistence.*
-import me.kzv.core.support.exception.TisError
-import me.kzv.core.support.exception.TisException
+import me.kzv.core.support.exception.SimpleError
+import me.kzv.core.support.exception.SimpleException
 import me.kzv.core.support.jpa.BaseAggregateRoot
 
 @Entity
@@ -32,7 +32,7 @@ class WorldCupModel(
             modelSource.contains("youtube") -> ModelType.YOUTUBE
             modelSource.contains("imgur") -> ModelType.IMGUR
             modelSource.contains("gfycat") -> ModelType.GFYCAT
-            else -> throw TisException(TisError.UNKNOWN_MODEL_TYPE)
+            else -> throw SimpleException(SimpleError.UNKNOWN_MODEL_TYPE)
         }
     }
 }
