@@ -3,13 +3,13 @@ import org.jlleitschuh.gradle.ktlint.KtlintExtension
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("org.springframework.boot") version "3.0.2"
-    id("io.spring.dependency-management") version "1.1.0"
+    id("org.springframework.boot") version "3.3.1"
+    id("io.spring.dependency-management") version "1.1.5"
     id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
-    kotlin("jvm") version "1.7.22"
-    kotlin("plugin.spring") version "1.7.22"
-    kotlin("plugin.jpa") version "1.7.22"
-    kotlin("plugin.allopen") version "1.7.22"
+    kotlin("jvm") version "1.9.24"
+    kotlin("plugin.spring") version "1.9.24"
+    kotlin("plugin.jpa") version "1.9.24"
+    kotlin("plugin.allopen") version "1.9.24"
 }
 
 allprojects {
@@ -36,14 +36,13 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter-web")
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
         implementation("org.springframework.boot:spring-boot-starter-validation")
-        implementation("org.springframework.cloud:spring-cloud-starter-openfeign:4.0.0")
 
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("io.github.microutils:kotlin-logging:1.12.5")
 
-        runtimeOnly("com.mysql:mysql-connector-j")
+        runtimeOnly("org.postgresql:postgresql")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 
@@ -88,4 +87,11 @@ project(":core") {
 
     tasks.getByName<Jar>("jar") { enabled = true }
     tasks.getByName<BootJar>("bootJar") { enabled = false }
+}
+
+project(":api"){
+    dependencies {
+        implementation(":core")
+        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
+    }
 }
