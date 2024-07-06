@@ -1,8 +1,8 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${db_url:jdbc:mysql://localhost:3306/simple_board}
-    username: ${db_username:root}
+    driver-class-name: org.postgresql.Driver
+    url: ${db_url:jdbc:postgres://localhost:5432/simple_sns}
+    username: ${db_username:postgres}
     password: ${db_password:1234}
     hikari:
       maximum-pool-size: 4
@@ -12,7 +12,7 @@ spring:
       ddl-auto: ${db_ddl:update}
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.PostgresSQLDialect
       jakarta:
         persistence:
           validation:
